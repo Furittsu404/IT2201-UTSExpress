@@ -48,7 +48,7 @@ class Authentication extends Database
             if ($action1 && $action2) {
                 echo "<script>alert('Registered Successfully!');</script>";
             } else {
-                echo "<script>alert('ERROR! Something went wrong');</script>";
+                echo "<script>alert('ERROR! Something went wrong!!');</script>";
             }
         }
 
