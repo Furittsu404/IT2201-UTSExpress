@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img src="../img/cloud.png" class="form-image-3 fi-2" />
       </div>
       <p class="featured-words">
-        <img src="../img/Nato-Express.png" class="logo"><br />
+        <img src="../img/UTS-Express.png" class="logo"><br />
       </p>
     </div>
     <div class="col col-2">

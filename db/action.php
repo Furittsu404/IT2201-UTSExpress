@@ -71,6 +71,18 @@ class Database
         return $result;
     }
 
+    public function pagination($identifier, $recordsPerPage, $table, $condition = null)
+    {
+        $sql = "SELECT COUNT($identifier) as count FROM $table";
+        if ($condition !== null) {
+            $sql.= " $condition";
+        }
+        $totalRecordsResult = $this->conn->query($sql);
+        $totalRecords = $totalRecordsResult->fetch_assoc()['count'];
+        $totalPages = ceil($totalRecords / $recordsPerPage);
+        return $totalPages;
+    }
+
     public function __destruct()
     {
         $this->conn->close();

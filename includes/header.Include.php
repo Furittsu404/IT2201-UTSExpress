@@ -1,5 +1,5 @@
 <header class="header">
-  <a href="#"><img src="../img/Nato-Express.png" class="logo" /></a>
+  <a href="#"><img src="../img/UTS-Express.png" class="logo" /></a>
 
   <nav class="navbar">
     <a href="">Home</a>
@@ -51,13 +51,4 @@
     <div class="total">total : 1000</div>
     <a href="#" class="btn" style="color: black">checkout</a>
   </div>
-
-  <form action="" class="login-form">
-    <h3>Login now</h3>
-    <input type="email" placeholder="your email" class="box" />
-    <input type="password" placeholder="your password" class="box" />
-    <p>Forget you password <a href="#">click here</a></p>
-    <p>don't have an account? <a href="#">create now</a></p>
-    <input type="submit" value="login now" class="btn" />
-  </form>
 </header>

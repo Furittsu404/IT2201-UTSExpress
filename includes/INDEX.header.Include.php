@@ -1,5 +1,5 @@
 <header class="header" id="header">
-    <a href="#"><img src="img/Nato-Express.png" class="logo" /></a>
+    <a href="#"><img src="img/UTS-Express.png" class="logo" /></a>
 
     <nav class="navbar">
         <a href="">Home</a>

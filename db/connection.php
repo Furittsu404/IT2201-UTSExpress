@@ -4,7 +4,7 @@ class Connection {
     private $DAddress = "localhost";
     private $DUsername = "root";
     private $DPass = "";
-    private $DName = "nato_db";
+    private $DName = "uts_db";
 
     public function connect() {
         $conn = new mysqli($this->DAddress, $this->DUsername, $this->DPass, $this->DName);

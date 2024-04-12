@@ -6,6 +6,7 @@ class Authentication extends Database
     public function login($email, $password)
     {
         $data = $this->showRecords('userlogin', "WHERE user_Email = '$email'");
+        $isadmin = $this->showRecords('adminlogin', "WHERE admin_Email = '$email'");
         if (count($data) > 0) {
             if (password_verify($password, $data[0][2])) {
                 $user_ID = $data[0][0];
@@ -17,8 +18,18 @@ class Authentication extends Database
             } else {
                 echo "<script>alert('Wrong password');</script>";
             }
+        } else if (count($isadmin) > 0) {
+            if (password_verify($password, $isadmin[0][3])) {
+                $_SESSION['user_ID'] = $isadmin[0][0];
+                $_SESSION['user_Nickname'] = $isadmin[0][3];
+                $_SESSION['admin'] = true;
+                echo "<script>window.location.href='../admin';</script>";
+                exit();
+            } else {
+                echo "<script>alert('Wrong password');</script>";
+            }
         } else {
-            echo "<script>alert('Wrong password');</script>";
+            echo "<script>alert('Wrong password123');</script>";
         }
     }
 
@@ -48,7 +59,7 @@ class Authentication extends Database
             if ($action1 && $action2) {
                 echo "<script>alert('Registered Successfully!');</script>";
             } else {
-                echo "<script>alert('ERROR! Something went wrong!!');</script>";
+                echo "<script>alert('ERROR! Something went wrong');</script>";
             }
         }
 

@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-section">
-            <img src="img/Nato-Express.png" class="logo" />
+            <img src="img/UTS-Express.png" class="logo" />
             <div> <a href="#">Privacy Policy</a> </div>
             <div> <a href="#">Terms of Service</a> </div>
             <div>

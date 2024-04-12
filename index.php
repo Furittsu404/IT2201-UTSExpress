@@ -17,7 +17,7 @@ session_start();
 
   <section class="home" id="home">
     <div class="content">
-      <h2>NATO CLSU<span> Express</span></h2>
+      <h2>UTS CLSU<span> Express</span></h2>
       <p>Welcome!</p>
       <?php
       if (!isset($_SESSION['user_ID']))
