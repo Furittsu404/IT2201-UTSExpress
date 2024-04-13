@@ -70,10 +70,10 @@ session_start();
   <section class="join-now" id="join-now">
     <div class="container">
       <div class="container-col">
-        <h1 class="heading">Become a NATO-Express Driver</h1>
+        <h1 class="heading">Become a UTS-Express Driver</h1>
         <p class="content">
-          Accelerate your career as a NATO-Express Driver! Join our program and play a crucial role in transporting
-          goods and personnel across NATO bases. Enjoy the thrill of logistics while ensuring timely deliveries and
+          Accelerate your career as a UTS-Express Driver! Join our program and play a crucial role in transporting
+          goods and personnel across UTS bases. Enjoy the thrill of logistics while ensuring timely deliveries and
           upholding security standards. Begin your journey today!
         </p>
         <br />
@@ -87,10 +87,10 @@ session_start();
     <div class="container">
       <img src="img/food-park.jpg" />
       <div class="container-col">
-        <h1 class="heading">Sell on NATO-Express today</h1>
+        <h1 class="heading">Sell on UTS-Express today</h1>
         <p class="content">
-          Empower your business with NATO-Express Today! Gain access to a unique marketplace tailored for NATO-related
-          products and services. Sell directly to NATO stakeholders, supporting their missions with your offerings. Join
+          Empower your business with UTS-Express Today! Gain access to a unique marketplace tailored for UTS-related
+          products and services. Sell directly to UTS stakeholders, supporting their missions with your offerings. Join
           us now to elevate your business presence and seize new opportunities!
         </p>
         <br />

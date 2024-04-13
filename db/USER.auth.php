@@ -7,6 +7,7 @@ class Authentication extends Database
     {
         $data = $this->showRecords('userlogin', "WHERE user_Email = '$email'");
         $isadmin = $this->showRecords('adminlogin', "WHERE admin_Email = '$email'");
+        $isshop = $this->showRecords('shoplogin', "WHERE shop_Email = '$email'");
         if (count($data) > 0) {
             if (password_verify($password, $data[0][2])) {
                 $user_ID = $data[0][0];
@@ -15,22 +16,32 @@ class Authentication extends Database
                 $_SESSION['user_Nickname'] = $data2[0][2];
                 echo "<script>window.location.href='../';</script>";
                 exit();
-            } else {
-                echo "<script>alert('Wrong password');</script>";
             }
-        } else if (count($isadmin) > 0) {
+        }
+        if (count($isadmin) > 0) {
             if (password_verify($password, $isadmin[0][3])) {
                 $_SESSION['user_ID'] = $isadmin[0][0];
-                $_SESSION['user_Nickname'] = $isadmin[0][3];
+                $_SESSION['user_Nickname'] = $isadmin[0][1];
                 $_SESSION['admin'] = true;
                 echo "<script>window.location.href='../admin';</script>";
                 exit();
-            } else {
-                echo "<script>alert('Wrong password');</script>";
             }
-        } else {
-            echo "<script>alert('Wrong password123');</script>";
+
         }
+        if (count($isshop) > 0) {
+            if (password_verify($password, $isshop[0][2])) {
+                $shop_ID = $isshop[0][0];
+                $_SESSION['user_ID'] = $shop_ID;
+                $data2 = $this->showRecords('shopdata', "WHERE shop_ID = '$shop_ID'");
+                $_SESSION['user_Nickname'] = $data2[0][1];
+                $_SESSION['shop'] = true;
+                echo "<script>window.location.href='../';</script>";
+                exit();
+            }
+        }
+        echo "<script>alert('Wrong password123');</script>";
+
+
     }
 
     public function register($email, $form)
