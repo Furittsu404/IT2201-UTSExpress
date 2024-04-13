@@ -125,6 +125,14 @@ tbody tr.expandable {
 .btn-icon {
     display: none !important;
 }
+.shop-image {
+    display: flex;
+    justify-content: center;
+}
+.shop-image img {
+    padding: 1.5rem;
+    width: 400px;
+}
 @media (max-width: 1080px) {
     .action-btn {
         display: block;
@@ -180,6 +188,16 @@ tbody tr.expandable {
         display: block !important;
         font-size: 12px;
     }
+    .shop-image img {
+        padding: 1rem;
+        width: 200px;
+    }
+    h2 {
+        font-size: large;
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 450px) {
@@ -223,6 +241,10 @@ tbody tr.expandable {
     td {
         padding-left: 0px;
         padding-right: 0px;
+    }
+    .shop-image img {
+        padding: 0.5rem;
+        width: 150px;
     }
 }
 

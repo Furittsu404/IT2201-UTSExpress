@@ -10,11 +10,29 @@
 .btn-icon {
     display: none;
 }
+.shop-image {
+    display: flex;
+    justify-content: start;
+}
+.shop-image img {
+    padding: 1.5rem;
+    width: 400px;
+}
 @media (max-width: 700px) {
     .btn-icon {
         display: block !important;
     }
     .btn-text {
         display: none;
+    }
+    .shop-image img {
+        padding: 1rem;
+        width: 200px;
+    }
+}
+@media (max-width: 400px) {
+    .shop-image img {
+        padding: 0.5rem;
+        width: 150px;
     }
 }

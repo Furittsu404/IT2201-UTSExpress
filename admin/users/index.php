@@ -53,7 +53,7 @@ if (isset($_GET['search'])) {
                     <h2>User Profiles</h2>
                     <form class="d-flex flex-row justify-content-end w-50 gap-3" method="get">
                         <input class="form-control mr-sm-2 search-bar" type="search" id="search-bar" name="search"
-                            placeholder="Search By User ID or Name" aria-label="Search">
+                            placeholder="Search By ID or Name" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0 search search-word"
                             type="submit">Search</button>
                         <?php if (isset($_GET['search'])): ?>

@@ -21,11 +21,12 @@ if (isset($_GET['shop_ID'])) {
 }
 
 if (isset($_POST['edit'])) {
+    $database->validateFile($_FILES);
     $shoplogin = [];
     $shopdata = [];
     foreach ($_POST as $name => $val) {
         if ($_POST['shop_Password'] != NULL && $name == 'shop_Password')
-            $shoplogin[$name] = password_hash($val,PASSWORD_BCRYPT);
+            $shoplogin[$name] = password_hash($val, PASSWORD_BCRYPT);
         else if ($name == 'shop_Email')
             $shoplogin[$name] = $val;
         else if ($name != 'edit' && $name != 'shop_Password')
@@ -36,9 +37,8 @@ if (isset($_POST['edit'])) {
         echo "<script>alert('Email already exists!')</script>";
     } else {
         try {
+            $database->moveFile($shop_id, $_FILES);
             $action = $database->updateRecord($shoplogin, 'shoplogin', ['shop_ID' => $shop_id]);
-            $result = $database->showRecords('shopdata', "WHERE shop_ID = $shop_id");
-            $result2 = $database->showRecords('shoplogin', "WHERE shop_ID = $shop_id");
             $action2 = $database->updateRecord($shopdata, 'shopdata', ['shop_ID' => $shop_id]);
             echo "<script>alert('Shop Updated Successfully.')</script>";
             echo '<script>window.location.href="profiles.php?page=" + ' . $_SESSION['page'] . ';</script>';
@@ -67,7 +67,7 @@ if (isset($_POST['edit'])) {
         <?php include "../../includes/ADMIN.sidebar.Include.php"; ?>
         <div class="main p-3 d-flex flex-column align-content-center">
 
-            <form class="container" method="post">
+            <form class="container" method="post" enctype="multipart/form-data">
                 <h1 class="display-5 ">Edit Shop</h1> <br>
                 <div class="form-group row">
                     <label for="shop_Name" class="col-sm-2 col-form-label">Name</label>
@@ -111,16 +111,31 @@ if (isset($_POST['edit'])) {
                     </div>
                 </div>
                 <br>
-                <div class="d-flex justify-content-end gap-3">
+                <div class="form-group row">
+                    <label for="shop_Image" class="col-sm-2 col-form-label">Shop Image</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="shop_Image" name="shop_Image">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row">
+                    <label for="current_Image" class="col-sm-2 col-form-label">Current Image</label>
+                    <div class="col-sm-10">
+                        <div class="shop-image" name="current_Image"><img
+                                src='../../img/<?php echo $shop_id; ?>/shop_Image.png'></div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row justify-content-end gap-3">
                     <button type="button" class="btn btn-secondary w-25"
-                        onclick="window.location.href = 'profiles.php?page=<?php echo $_SESSION['page']; ?>'"><span class="btn-text">Cancel</span><i
-                            class="bi bi-x-lg btn-icon"></i></button>
+                        onclick="window.location.href = 'profiles.php?page=<?php echo $_SESSION['page']; ?>'"><span
+                            class="btn-text">Cancel</span><i class="bi bi-x-lg btn-icon"></i></button>
                     <button type="submit" name="edit" class="btn btn-success w-25"><span class="btn-text">Edit
                             shop</span><i class="bi bi-check-lg btn-icon"></i></button>
                 </div>
             </form>
         </div>
     </div>
-</body> 
+</body>
 
 </html>

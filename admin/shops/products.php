@@ -12,9 +12,12 @@ $connection = new Connection();
 $database = new adminAction($connection->connect());
 
 if (isset($_POST['create'])) {
+    $database->validateFile($_FILES);
     $password = $_POST['shop_Password'];
     $_POST['shop_Password'] = password_hash($password, PASSWORD_BCRYPT);
-    $database->createShop($_POST['shop_Email'], $_POST);
+    $key = $database->createShop($_POST['shop_Email'], $_POST);
+    if (isset($key))
+        $database->moveFile($key, $_FILES);
     $_POST = [];
 }
 
@@ -50,11 +53,11 @@ if (isset($_GET['search'])) {
         <?php include "../../includes/ADMIN.sidebar.Include.php"; ?>
         <div class="main p-3">
             <div class="container">
-                <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-row justify-content-between align-content-center">
                     <h2>Shop Profiles</h2>
                     <form class="d-flex flex-row justify-content-end w-50 gap-3" method="get">
                         <input class="form-control mr-sm-2 search-bar" type="search" id="search-bar" name="search"
-                            placeholder="Search By User ID or Name" aria-label="Search">
+                            placeholder="Search By ID or Name" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0 search search-word"
                             type="submit">Search</button>
                         <?php if (isset($_GET['search'])): ?>
@@ -88,13 +91,16 @@ if (isset($_GET['search'])) {
                             for ($i = 0; $i < count($result); $i++) {
                                 if ($result[0][0]) {
                                     echo '<tr class=' . "'expandable'" . '>';
-                                    echo "<td class=" . '"expandable"' . "onclick='showHideRow(" . '"shops' . ++$shop_count . '");' . "'>" . $shop_count . "</td>";
-                                    echo "<td class=" . '"expandable"' . "onclick='showHideRow(" . '"shops' . $shop_count . '");' . "'>" . $result[$i][0] . "</td>";
-                                    echo "<td class=" . '"expandable"' . "onclick='showHideRow(" . '"shops' . $shop_count . '");' . "'>" . $result[$i][1] . "</td>";
+                                    echo "<td class=" . '"expandable"' . "onclick='showHideRow(" . '"shops' . ++$shop_count . '");' . "showHideRow(" . '"shops1' . $shop_count . '");' . "'>" . $shop_count . "</td>";
+                                    echo "<td class=" . '"expandable"' . "onclick='showHideRow(" . '"shops' . $shop_count . '");' . "showHideRow(" . '"shops1' . $shop_count . '");' . "'>" . $result[$i][0] . "</td>";
+                                    echo "<td class=" . '"expandable"' . "onclick='showHideRow(" . '"shops' . $shop_count . '");' . "showHideRow(" . '"shops1' . $shop_count . '");' . "'>" . $result[$i][1] . "</td>";
                                     echo "<td><button class='edit w-40' onclick='window.location.href=" . '"editProfiles.php?shop_ID=' . $result[$i][0] . '"' . "'><span class='action-word'>Edit</span><i class='bi bi-pencil action-btn'></i></button> <button class='delete w-40' onclick='window.location.href=" . '"deleteProfiles.php?shop_ID=' . $result[$i][0] . '"' . "'><span class='action-word'>Delete</span><i class='bi bi-trash action-btn'></i></button></td>";
                                     echo "</tr>";
                                     echo "<tr id='shops" . $shop_count . "' class='hidden'>";
                                     echo "<td colspan='5'><strong>Email:&nbsp;&nbsp;</strong>" . $result2[$i][1] . "<strong>&nbsp;&nbsp;&nbsp;&nbsp;Phone Number:&nbsp;&nbsp;</strong>" . $result[$i][2] . "<strong>&nbsp;&nbsp;&nbsp;&nbsp;Location:&nbsp;&nbsp;</strong>" . $result[$i][3] . "</td>";
+                                    echo "</tr>";
+                                    echo "<tr id='shops1" . $shop_count . "' class='hidden'>";
+                                    echo "<td colspan='5'><strong>Shop Image:</strong><br><div class=" . "'shop-image'>" . "<img src='../../img/" . $result[$i][0] . "/shop_Image.png'" . "></div></td>";
                                     echo "</tr>";
                                 }
                             }
@@ -155,11 +161,11 @@ if (isset($_GET['search'])) {
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="createModalLabel">Create User</h1>
+                    <h1 class="modal-title fs-5" id="createModalLabel">Create Shop</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <div class="form-group row">
                             <label for="shop_Name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
@@ -179,8 +185,8 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="shop_Password" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="shop_Password" name="shop_Password"
-                                    placeholder="Password" required>
+                                <input type="password" class="form-control" minlength="8" id="shop_Password"
+                                    name="shop_Password" placeholder="Password" required>
                             </div>
                         </div>
                         <br>
@@ -200,6 +206,13 @@ if (isset($_GET['search'])) {
                             </div>
                         </div>
                         <br>
+                        <div class="form-group row">
+                            <label for="shop_Image" class="col-sm-2 col-form-label">Shop Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" id="shop_Image" name="shop_Image">
+                            </div>
+                        </div>
+                        <br>
                         <div class="d-flex justify-content-end gap-3">
                             <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">Close</button>
                             <button type="submit" name="create" class="btn btn-success w-25">Create Shop</button>
@@ -210,7 +223,7 @@ if (isset($_GET['search'])) {
         </div>
     </div>
 
-    
+
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../js/admin.js"></script>
 </body>

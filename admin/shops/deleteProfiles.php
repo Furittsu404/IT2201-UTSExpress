@@ -21,6 +21,7 @@ if (isset($_GET['shop_ID'])) {
 }
 
 if (isset($_POST['delete'])) {
+    $database->deleteDir('../../img/'.$shop_id.'/');
     $action = $database->deleteRecord('shoplogin', ['shop_ID' => $shop_id]);
     $action2 = $database->deleteRecord('shopdata', ['shop_ID' => $shop_id]);
     echo "<script>alert('Deleted shop data successfully.'); window.location.href='profiles.php?page=' + " . $_SESSION['page'] . "</script>";
