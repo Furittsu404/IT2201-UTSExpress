@@ -98,29 +98,13 @@ if (isset($_GET['search'])) {
                                                     <img src="../../img/<?= $result3[$i][5] ?>/products/<?= $result3[$j][0] ?>.png">
                                                 </div>
                                                 <h1><?= $result3[$j][1] ?></h1>
-                                                <div class="row justify-content-center">
+                                                <div class="row gap-1 justify-content-center">
                                                     <button class='edit w-40 btn btn-success'
                                                         onclick='window.location.href="editProducts.php?product_ID=<?= $result3[$j][0] ?>"'><span
                                                             class="action-word">Edit</span><i
                                                             class='bi bi-pencil action-btn'></i></button>
                                                     <button class='delete w-40 btn btn-outline-danger'
                                                         onclick='window.location.href="deleteProducts.php?product_ID=<?= $result3[$j][0] ?>"'><span
-                                                            class='action-word'>Delete</span><i
-                                                            class='bi bi-trash action-btn'></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="product p-3 overflow-hidden">
-                                                <div class="product-image">
-                                                    <img src="../../img/<?= $result3[$i][4] ?>/products/<?= $result3[$j][0] ?>.png">
-                                                </div>
-                                                <h1><?= $result3[$j][1] ?></h1>
-                                                <div class="row justify-content-center">
-                                                    <button class='edit w-40 btn btn-success'
-                                                        onclick='window.location.href="editProducts.php?shop_ID=<?= $result3[$j][0] ?>"'><span
-                                                            class="action-word">Edit</span><i
-                                                            class='bi bi-pencil action-btn'></i></button>
-                                                    <button class='delete w-40 btn btn-outline-danger'
-                                                        onclick='window.location.href="deleteProducts.php?shop_ID=<?= $result3[$j][0] ?>"'><span
                                                             class='action-word'>Delete</span><i
                                                             class='bi bi-trash action-btn'></i></button>
                                                 </div>

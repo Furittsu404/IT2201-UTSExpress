@@ -54,7 +54,7 @@ class adminAction extends Database
         if ($sub != null) 
             $loc .= "/" . $sub;
         if (!file_exists($loc)) {
-            @mkdir('path/to/directory', 0777, true);
+            @mkdir($loc, 0777, true);
         }
         $tempname = $file[key($file)]["tmp_name"];
         $folder = $loc . "/" . $name . ".png";

@@ -2,11 +2,11 @@
   <a href="../"><img src="../img/UTS-Express.png" class="logo" /></a>
 
   <nav class="navbar">
-    <a href="../">Home</a>
-    <a href="../products">Products</a>
-    <a href="../shops">Shops</a>
-    <a href="../about">About Us</a>
-    <a href="../faq">FAQ</a>
+    <a href="../" class="<?= ($_SESSION['site'] === 'Home') ? "active-tab navtxt" : "navtxt" ?>" id="navtxt">Home</a>
+    <a href="../products" class="<?= ($_SESSION['site'] === 'Products') ? "active-tab navtxt1" : "navtxt1" ?>" id="navtxt">Products</a>
+    <a href="../shops" class="<?= ($_SESSION['site'] === 'Shops') ? "active-tab navtxt2" : "navtxt2" ?>" id="navtxt">Shops</a>
+    <a href="../about" class="<?= ($_SESSION['site'] === 'About') ? "active-tab navtxt3" : "navtxt3" ?>" id="navtxt">About Us</a>
+    <a href="../faq" class="<?= ($_SESSION['site'] === 'Faq') ? "active-tab navtxt4" : "navtxt4" ?>" id="navtxt">FAQ</a>
   </nav>
 
   <div class="icons" id="nav">

@@ -4,6 +4,12 @@ let navbtn = document.querySelector('#menu-btn');
 let userbtn = document.querySelector('#user-btn');
 
 let header = document.querySelector(".header");
+let navbartxt = document.querySelector(".navtxt");
+let navbartxt1 = document.querySelector(".navtxt1");
+let navbartxt2 = document.querySelector(".navtxt2");
+let navbartxt3 = document.querySelector(".navtxt3");
+let navbartxt4 = document.querySelector(".navtxt4");
+let activetab = document.querySelector(".active-tab");
 
 let searchForm = document.querySelector(".search-bar");
 
@@ -64,8 +70,20 @@ var color = header.offsetTop;
 function myFunction() {
   if (window.scrollY > color) {
     header.classList.add("color-header");
+    navbartxt.classList.add("color-text");
+    navbartxt1.classList.add("color-text");
+    navbartxt2.classList.add("color-text");
+    navbartxt3.classList.add("color-text");
+    navbartxt4.classList.add("color-text");
+    activetab.classList.add("active-color");
   } else {
     header.classList.remove("color-header");
+    navbartxt.classList.remove("color-text");
+    navbartxt1.classList.remove("color-text");
+    navbartxt2.classList.remove("color-text");
+    navbartxt3.classList.remove("color-text");
+    navbartxt4.classList.remove("color-text");
+    activetab.classList.remove("active-color");
   }
 }
 

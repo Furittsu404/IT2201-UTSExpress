@@ -32,6 +32,7 @@ html {
 body {
     background: #FFF;
     margin-top: 100px;
+    background: url('../img/bg.jpg');
 }
 
 section {
@@ -53,6 +54,10 @@ hr1 {
 }
 
 /*=======================================   HEADER   ===========================================*/
+.active-tab {
+    color: green !important;
+    font-weight: 600;
+}
 .header {
     position: fixed;
     top: 0;
@@ -72,14 +77,20 @@ hr1 {
     width: 173.6px;
 }
 
-.header .navbar a {
+.header .navbar #navtxt {
     font-size: 1.7rem;
     margin: 0 1rem;
     color: var(--black);
 }
 
-.header .navbar a:hover {
+.header .navbar #navtxt:hover {
     color: green;
+}
+.color-text {
+    color: #FFF !important;
+}
+.color-text:hover {
+    color: yellowgreen !important;
 }
 
 .header .icons div {
@@ -87,7 +98,7 @@ hr1 {
     width: 4.5rem;
     line-height: 4.5rem;
     border-radius: 1rem;
-    background: #eee;
+    background: #eee; 
     color: var(--black);
     font-size: 2rem;
     margin-right: .3rem;
@@ -124,7 +135,7 @@ hr1 {
     transition: .1.5s linear;
 }
 .color-header {
-    background-color: white;
+    background-color: darkgreen;
     box-shadow: var(--box-shadow);
     transition: .1.5s linear;
 }
@@ -280,6 +291,16 @@ hr1 {
 
 /*===============================================================================================*/
 
+.end {
+    align-self: end;
+    padding: 1rem;
+}
+.add-cart {
+    background-color: green;
+    color: #FFF;
+    border-radius: 2em;
+    width: 10rem;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -303,7 +324,7 @@ hr1 {
     margin-bottom: 3rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.row h1 {
+h1 {
     padding-left: 3rem;
     padding-right: 3rem;
     width: 100%;
@@ -317,11 +338,20 @@ hr1 {
     gap: 3rem;
     padding: 2rem;
 }
+.container2 {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    gap: 3rem;
+    justify-content: space-evenly;
+}
 .col {
     display: flex;
     flex-wrap: wrap;
+    padding: 3rem;
     gap: 3rem;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    background-color: #FFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .product-container {
     display: flex;
@@ -331,16 +361,15 @@ hr1 {
     padding: 0;
     width: 220px;
     height: 250px;
-    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     font-size: 8px;
     font-weight: 600px;
 }
 .product-container:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: 0.3s ease-in-out;
-    cursor: pointer;
+    border: 1px solid darkgreen;
 }
 .product-image {  
     height: 180px;
@@ -348,13 +377,11 @@ hr1 {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    cursor: pointer;
 }
 .product-image img {
     height: 100%;
     width: 100%;
-}
-.product-image h1 {
-    
 }
 .shop-container {
     display: flex;
@@ -388,6 +415,9 @@ hr1 {
     height: 100%;
     width: 100%;
 }
+.active-color {
+    color: yellowgreen !important;
+}
 
 
 
@@ -395,8 +425,26 @@ hr1 {
 
 
 
-
-
+@media (max-width: 1700px) {
+    .container2 {
+        grid-template-columns: auto auto auto auto auto;
+    }
+}
+@media (max-width: 1400px) {
+    .container2 {
+        grid-template-columns: auto auto auto auto;
+    }
+}
+@media (max-width: 1200px) {
+    .container2 {
+        grid-template-columns: auto auto auto;
+    }
+}
+@media (max-width: 900px) {
+    .container2 {
+        grid-template-columns: auto auto;
+    }
+}
 @media (max-width: 991px) {
     html {
         font-size: 55%;
@@ -427,7 +475,7 @@ hr1 {
         width: 30rem;
         box-shadow: var(--box-shadow);
         border-radius: .5rem;
-        background: #fff;
+        background: #FFF;
     }
 
     .header .navbar.active {
@@ -435,10 +483,15 @@ hr1 {
         transition: .4s linear;
     }
 
-    .header .navbar a {
+    .header .navbar #navtxt {
         font-size: 2rem;
-        margin: 2rem 2.5rem;
+        margin: 0;
+        padding: 2rem 2.5rem;
         display: block;
+    }
+    .header .navbar #navtxt:hover {
+        background-color: darkgreen;
+        color: #FFF;
     }
     .product-container {
         width: 200px;
@@ -472,15 +525,16 @@ hr1 {
     .product-container h1 {
         font-size: 1em;
     }
-    .col {
+    .col, .row2 {
         gap: 1.5rem;
-        justify-content: center;
     }
     .shop-container {
         width: 100px;
         height: 100px;
     }
-    .shop-container h1 {
+    .shop-container h1, h1, .add-cart {
+        margin: 0;
+        padding: 0;
         font-size: 1em;
     }
     .shop-image {
@@ -535,7 +589,7 @@ hr1 {
     }
     .shop-container {
         width: 80px;
-        height: 80px;
+        height: 100px;
     }
     .icons div{
         width: 3rem !important;
@@ -556,7 +610,7 @@ hr1 {
     }
     .shop-container {
         width: 60px;
-        height: 60px;
+        height: 100px;
     }
     .shop-container h1 {
         font-size: 0.75em;
