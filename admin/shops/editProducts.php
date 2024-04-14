@@ -72,7 +72,7 @@ if (isset($_POST['edit'])) {
                         <div class="form-group row">
                             <label for="product_Name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="product_Name" name="product_Name"
+                                <input type="text" oninput="validSymbol(this.id);" class="form-control" id="product_Name" name="product_Name"
                                     placeholder="Name" value="<?php echo isset($result[0][1]) ? $result[0][1] : '' ?>"
                                     required>
                             </div>
@@ -90,7 +90,7 @@ if (isset($_POST['edit'])) {
                         <div class="form-group row">
                             <label for="product_Description" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="product_Description" name="product_Description"
+                                <textarea class="form-control" oninput="validSymbol(this.id);" id="product_Description" name="product_Description"
                                     rows="3"><?= $result[0][3] ?></textarea>
                             </div>
                         </div>
@@ -139,6 +139,7 @@ if (isset($_POST['edit'])) {
             });
         });
     </script>
+    <script src="../../js/admin.js"></script>
 </body>
 
 </html>

@@ -107,3 +107,11 @@ var swiper = new Swiper(".product-slider", {
     },
   },
 });
+
+
+function showModal(var_id) {
+  document.getElementById(var_id).style.display = "block";
+}
+function closeModal(var_id) {
+  document.getElementById(var_id).style.display = "none";
+}

@@ -3,7 +3,7 @@ error_reporting(E_ERROR | E_PARSE);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "shop_form";
+$dbname = "uts_db";
 
 
 $conn = new mysqli($servername, $username, $password, $dbname);

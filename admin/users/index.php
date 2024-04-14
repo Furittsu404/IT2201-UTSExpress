@@ -162,7 +162,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="user_Name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="user_Name" name="user_Name"
+                                <input type="text" oninput="letterOnly(this.id);" class="form-control" id="user_Name" name="user_Name"
                                     placeholder="Name" required>
                             </div>
                         </div>
@@ -170,7 +170,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="user_Nickname" class="col-sm-2 col-form-label">Nickname</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="user_Nickname" name="user_Nickname"
+                                <input type="text" oninput="validSymbol(this.id);" class="form-control" id="user_Nickname" name="user_Nickname"
                                     placeholder="Nickname" required>
                             </div>
                         </div>
@@ -178,13 +178,13 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="user_Email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="user_Email" name="user_Email"
+                                <input type="email" oninput="validSymbol(this.id);" class="form-control" id="user_Email" name="user_Email"
                                     placeholder="Email" required>
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
-                            <label for="user_Password" class="col-sm-2 col-form-label">Password</label>
+                            <label for="user_Password" oninput="validSymbol(this.id);" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
                                 <input type="password" class="form-control" id="user_Password" name="user_Password"
                                     placeholder="Password" required>
@@ -202,7 +202,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="user_Location" class="col-sm-2 col-form-label">Location</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="user_Location" name="user_Location"
+                                <input type="text" oninput="validSymbol(this.id);" class="form-control" id="user_Location" name="user_Location"
                                     placeholder="Location (Optional)">
                             </div>
                         </div>

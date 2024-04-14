@@ -1,6 +1,11 @@
 <?php
 session_start();
-
+$_SESSION['site'] = 'Home';
+if (isset($_GET['search'])) {
+  $searchq = $_GET['search'];
+  header("Location: products/?search=".$searchq);
+}
+$bg = rand(1,4);
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +20,7 @@ session_start();
 <body>
   <?php include 'includes/INDEX.header.Include.php'; ?>
 
-  <section class="home" id="home">
+  <section class="home" id="home" style="background: url(img/<?= $bg ?>.jpg) no-repeat;background-position: bottom;background-size: cover; ">
     <div class="content">
       <h2>UTS CLSU<span> Express</span></h2>
       <p>Welcome!</p>
@@ -131,7 +136,7 @@ session_start();
     </div>
   </section>
 
-  <?php include 'includes/footer.Include.php' ?>
+  <?php include 'includes/INDEX.footer.Include.php' ?>
 
   <script src="js/index.js"></script>
 </body>

@@ -72,7 +72,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="user_Name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="user_Name" name="user_Name" placeholder="Name"
+                        <input type="text" oninput="letterOnly(this.id);" class="form-control" id="user_Name" name="user_Name" placeholder="Name"
                             value="<?php echo isset($result[0][2]) ? $result[0][2] : '' ?>" required>
                     </div>
                 </div>
@@ -80,7 +80,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="user_Nickname" class="col-sm-2 col-form-label">Nickname</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="user_Nickname" name="user_Nickname"
+                        <input type="text" oninput="validSymbol(this.id);" class="form-control" id="user_Nickname" name="user_Nickname"
                             placeholder="Nickname" value="<?php echo isset($result[0][1]) ? $result[0][1] : '' ?>"
                             required>
                     </div>
@@ -89,7 +89,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="user_Email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="user_Email" name="user_Email" placeholder="Email"
+                        <input type="email" oninput="validSymbol(this.id);" class="form-control" id="user_Email" name="user_Email" placeholder="Email"
                             value="<?php echo isset($result2[0][1]) ? $result2[0][1] : '' ?>" required>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="user_Password" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="user_Password" name="user_Password"
+                        <input type="password" oninput="validSymbol(this.id);" class="form-control" id="user_Password" name="user_Password"
                             placeholder="Password (Optional)">
                     </div>
                 </div>
@@ -114,7 +114,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="user_Location" class="col-sm-2 col-form-label">Location</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="user_Location" name="user_Location"
+                        <input type="text" oninput="validSymbol(this.id);" class="form-control" id="user_Location" name="user_Location"
                             placeholder="Location (Optional)"
                             value="<?php echo isset($result[0][4]) ? $result[0][4] : '' ?>">
                     </div>
@@ -130,6 +130,7 @@ if (isset($_POST['edit'])) {
             </form>
         </div>
     </div>
+    <script src="../../js/admin.js"></script>
 </body> 
 
 </html>

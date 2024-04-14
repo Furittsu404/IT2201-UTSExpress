@@ -169,7 +169,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="shop_Name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="shop_Name" name="shop_Name"
+                                <input type="text" oninput="validSymbol(this.id);" class="form-control" id="shop_Name" name="shop_Name"
                                     placeholder="Name" required>
                             </div>
                         </div>
@@ -177,7 +177,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="shop_Email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="shop_Email" name="shop_Email"
+                                <input type="email" oninput="validSymbol(this.id);" class="form-control" id="shop_Email" name="shop_Email"
                                     placeholder="Email" required>
                             </div>
                         </div>
@@ -185,7 +185,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="shop_Password" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" minlength="8" id="shop_Password"
+                                <input type="password" oninput="validSymbol(this.id);" class="form-control" minlength="8" id="shop_Password"
                                     name="shop_Password" placeholder="Password" required>
                             </div>
                         </div>
@@ -201,7 +201,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="shop_Location" class="col-sm-2 col-form-label">Location</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="shop_Location" name="shop_Location"
+                                <input type="text" oninput="validSymbol(this.id);" class="form-control" id="shop_Location" name="shop_Location"
                                     placeholder="Location (Optional)">
                             </div>
                         </div>
