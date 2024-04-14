@@ -31,15 +31,15 @@ class adminAction extends Database
             }
         }
     }
-    public function validateFile($file)
+    public function validateFile($file, $key)
     {
-        $check = getimagesize($file["shop_Image"]["tmp_name"]);
+        $check = getimagesize($file[$key]["tmp_name"]);
         if ($check === false) {
             echo "<script>alert('File is not an image.');</script>";
             echo "<script>window.location.href='';</script>";
             exit();
         }
-        $imageFileType = strtolower(pathinfo($file["shop_Image"]["name"], PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($file[$key]["name"], PATHINFO_EXTENSION));
         if (
             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         ) {
@@ -48,12 +48,16 @@ class adminAction extends Database
             exit();
         }
     }
-    public function moveFile($key, $file)
+    public function moveFile($key, $name, $file, $directory, $sub = null)
     {
-        $loc = "../../img/" . $key;
-        @mkdir($loc, 0755);
-        $tempname = $file["shop_Image"]["tmp_name"];
-        $folder = "../../img/" . $key . "/" . "shop_Image.png";
+        $loc = $directory . '/'.  $key;
+        if ($sub != null) 
+            $loc .= "/" . $sub;
+        if (!file_exists($loc)) {
+            @mkdir('path/to/directory', 0777, true);
+        }
+        $tempname = $file[key($file)]["tmp_name"];
+        $folder = $loc . "/" . $name . ".png";
         if (move_uploaded_file($tempname, $folder)) {
         } else {
             echo "<script>alert('ERROR! Something went wrong');</script>";

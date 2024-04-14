@@ -1,11 +1,12 @@
 <header class="header" id="header">
-    <a href="#"><img src="img/UTS-Express.png" class="logo" /></a>
+    <a href=""><img src="img/UTS-Express.png" class="logo" /></a>
 
     <nav class="navbar">
         <a href="">Home</a>
-        <a href="">Shops</a>
-        <a href="">About Us</a>
-        <a href="">FAQ</a>
+        <a href="products">Products</a>
+        <a href="shops">Shops</a>
+        <a href="about">About Us</a>
+        <a href="faq">FAQ</a>
     </nav>
 
     <div class="icons" id="nav">
@@ -61,6 +62,9 @@
     </form>
 </div>
 <nav class="user-window">
+    <?php if ($_SESSION['admin'] == true): ?>
+        <a href="admin">Admin Dashboard</a>
+    <?php endif; ?>
     <a href="">Profile</a>
     <a href="db/logout.php">Logout</a>
 </nav>

@@ -40,11 +40,6 @@ if (isset($_POST['delete'])) {
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../../css/admin.css">
     <link rel="stylesheet" href="../../css/admin.usersedit.css">
-    <style>
-        .form-control {
-            border: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -90,10 +85,10 @@ if (isset($_POST['delete'])) {
                 <br>
                 <div class="d-flex justify-content-end gap-3">
                     <button type="button" class="btn btn-secondary w-25"
-                        onclick="window.location.href = 'profiles.php?page=<?php echo $_SESSION['page']; ?>'"><span class="btn-text">Cancel</span><i
-                            class="bi bi-x-lg btn-icon"></i></button>
-                    <button type="submit" name="delete" class="btn btn-success w-25"><span class="btn-text">Delete
-                            shop</span><i class="bi bi-check-lg btn-icon"></i></button>
+                        onclick="window.location.href = 'profiles.php?page=<?php echo $_SESSION['page']; ?>'"><span class="btn-text">Cancel</span>
+                        <i class="bi bi-backspace btn-icon"></i></button>
+                    <button type="submit" name="delete" class="btn btn-danger w-25"><span class="btn-text">Delete
+                            Shop</span><i class='bi bi-trash btn-icon'></i></button>
                 </div>
             </form>
         </div>

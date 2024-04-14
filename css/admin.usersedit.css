@@ -29,6 +29,9 @@
         padding: 1rem;
         width: 200px;
     }
+    .form-group label, .form-group input, .form-group textarea {
+        font-size: 12px;
+    }
 }
 @media (max-width: 400px) {
     .shop-image img {

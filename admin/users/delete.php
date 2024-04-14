@@ -23,7 +23,7 @@ if (isset($_GET['user_ID'])) {
 if (isset($_POST['delete'])) {
     $action = $database->deleteRecord('userlogin', ['user_ID' => $user_id]);
     $action2 = $database->deleteRecord('userdata', ['user_ID' => $user_id]);
-    echo "<script>alert('Deleted User data successfully.'); window.location.href='../../users/?page=' + " . $_SESSION['page'] . "</script>";
+    echo "<script>alert('Deleted User data successfully.'); window.location.href='../users/?page=' + " . $_SESSION['page'] . "</script>";
     exit();
 }
 ?>
@@ -36,14 +36,9 @@ if (isset($_POST['delete'])) {
     <title>Delete User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../../../css/admin.css">
-    <link rel="stylesheet" href="../../../css/admin.usersedit.css">
-    <style>
-        .form-control {
-            border: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/admin.usersedit.css">
 </head>
 
 <body>
@@ -98,10 +93,10 @@ if (isset($_POST['delete'])) {
                 <br>
                 <div class="d-flex justify-content-end gap-3">
                     <button type="button" class="btn btn-secondary w-25"
-                        onclick="window.location.href='../../users'"><span class="btn-text">Cancel</span><i
-                            class="bi bi-x-lg btn-icon"></i></button>
-                    <button type="submit" name="delete" class="btn btn-success w-25"><span class="btn-text">Delete
-                            User</span><i class="bi bi-check-lg btn-icon"></i></button>
+                        onclick="window.location.href='../users'"><span class="btn-text">Cancel</span>
+                        <i class="bi bi-backspace btn-icon"></i></button>
+                    <button type="submit" name="delete" class="btn btn-danger w-25"><span class="btn-text">Delete
+                            User</span><i class='bi bi-trash btn-icon'></i></button>
                 </div>
             </form>
         </div>

@@ -41,7 +41,7 @@ if (isset($_POST['edit'])) {
             $result2 = $database->showRecords('userlogin', "WHERE user_ID = $user_id");
             $action2 = $database->updateRecord($userdata, 'userdata', ['user_ID' => $user_id]);
             echo "<script>alert('User Updated Successfully.')</script>";
-            echo '<script>window.location.href="../?page=" + ' . $_SESSION['page'] . ';</script>';
+            echo '<script>window.location.href="../users/?page=" + ' . $_SESSION['page'] . ';</script>';
         } catch (Exception $e) {
             echo "Error: $e";
         }
@@ -57,9 +57,9 @@ if (isset($_POST['edit'])) {
     <title>Edit User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../../../css/admin.css">
-    <link rel="stylesheet" href="../../../css/admin.usersedit.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/admin.usersedit.css">
 </head>
 
 <body>
@@ -122,7 +122,7 @@ if (isset($_POST['edit'])) {
                 <br>
                 <div class="d-flex justify-content-end gap-3">
                     <button type="button" class="btn btn-secondary w-25"
-                        onclick="window.location.href='../../users'"><span class="btn-text">Cancel</span><i
+                        onclick="window.location.href='../users'"><span class="btn-text">Cancel</span><i
                             class="bi bi-x-lg btn-icon"></i></button>
                     <button type="submit" name="edit" class="btn btn-success w-25"><span class="btn-text">Edit
                             User</span><i class="bi bi-check-lg btn-icon"></i></button>

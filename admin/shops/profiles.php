@@ -12,12 +12,12 @@ $connection = new Connection();
 $database = new adminAction($connection->connect());
 
 if (isset($_POST['create'])) {
-    $database->validateFile($_FILES);
+    $database->validateFile($_FILES, key($_FILES));
     $password = $_POST['shop_Password'];
     $_POST['shop_Password'] = password_hash($password, PASSWORD_BCRYPT);
     $key = $database->createShop($_POST['shop_Email'], $_POST);
     if (isset($key))
-        $database->moveFile($key, $_FILES);
+        $database->moveFile($key, 'shop_Image' ,$_FILES, '../../img');
     $_POST = [];
 }
 

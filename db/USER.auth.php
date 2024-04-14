@@ -8,12 +8,14 @@ class Authentication extends Database
         $data = $this->showRecords('userlogin', "WHERE user_Email = '$email'");
         $isadmin = $this->showRecords('adminlogin', "WHERE admin_Email = '$email'");
         $isshop = $this->showRecords('shoplogin', "WHERE shop_Email = '$email'");
+        $isdriver = $this->showRecords('driverlogin', "WHERE driver_Email = '$email'");
         if (count($data) > 0) {
             if (password_verify($password, $data[0][2])) {
                 $user_ID = $data[0][0];
                 $_SESSION['user_ID'] = $user_ID;
                 $data2 = $this->showRecords('userdata', "WHERE user_ID = '$user_ID'");
                 $_SESSION['user_Nickname'] = $data2[0][2];
+                $_SESSION['user'] = true;
                 echo "<script>window.location.href='../';</script>";
                 exit();
             }
@@ -39,7 +41,18 @@ class Authentication extends Database
                 exit();
             }
         }
-        echo "<script>alert('Wrong password123');</script>";
+        if (count($isdriver) > 0) {
+            if (password_verify($password, $isdriver[0][2])) {
+                $driver_ID = $isdriver[0][0];
+                $_SESSION['user_ID'] = $driver_ID;
+                $data2 = $this->showRecords('driverdata', "WHERE driver_ID = '$driver_ID'");
+                $_SESSION['user_Nickname'] = $data2[0][1];
+                $_SESSION['driver'] = true;
+                echo "<script>window.location.href='../';</script>";
+                exit();
+            }
+        }
+        echo "<script>alert('Wrong Password!');</script>";
 
 
     }

@@ -21,7 +21,8 @@ if (isset($_GET['shop_ID'])) {
 }
 
 if (isset($_POST['edit'])) {
-    $database->validateFile($_FILES);
+    if (!$_FILES['shop_Image']['error'])
+        $database->validateFile($_FILES, key($_FILES));
     $shoplogin = [];
     $shopdata = [];
     foreach ($_POST as $name => $val) {
@@ -37,7 +38,8 @@ if (isset($_POST['edit'])) {
         echo "<script>alert('Email already exists!')</script>";
     } else {
         try {
-            $database->moveFile($shop_id, $_FILES);
+            if (!$_FILES['shop_Image']['error'])
+                $database->moveFile($shop_id, 'shop_Image', $_FILES, '../../img');
             $action = $database->updateRecord($shoplogin, 'shoplogin', ['shop_ID' => $shop_id]);
             $action2 = $database->updateRecord($shopdata, 'shopdata', ['shop_ID' => $shop_id]);
             echo "<script>alert('Shop Updated Successfully.')</script>";
@@ -122,7 +124,7 @@ if (isset($_POST['edit'])) {
                     <label for="current_Image" class="col-sm-2 col-form-label">Current Image</label>
                     <div class="col-sm-10">
                         <div class="shop-image" name="current_Image"><img
-                                src='../../img/<?php echo $shop_id; ?>/shop_Image.png'></div>
+                                src='../../img/<?php echo $shop_id; ?>/shop_Image.png' id="shopImage"></div>
                     </div>
                 </div>
                 <br>
@@ -136,6 +138,23 @@ if (isset($_POST['edit'])) {
             </form>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#shop_Image').change(function () {
+                var file = this.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        $('#shopImage').attr('src', event.target.result);
+                        $('#shopImage').hide();
+                        $('#shopImage').fadeIn(1000);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
