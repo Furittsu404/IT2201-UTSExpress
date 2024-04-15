@@ -15,7 +15,7 @@ $result2 = $database->showRecords('shopdata', "ORDER BY rand() LIMIT 0, 6");
 $totalPages = $database->pagination('product_ID', 15, 'shopproducts');
 
 if (isset($_GET['search'])) {
-    if($_GET['search'] == NULL)
+    if ($_GET['search'] == NULL)
         echo "<script>window.location.href='?'</script>";
     $searchq = $_GET['search'];
     $result = $database->showRecords('shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' LIMIT $offset, 15");
@@ -62,27 +62,32 @@ if (isset($_GET['sort'])) {
     <?php include '../includes/header.Include.php' ?>
 
     <div class="container">
-        <div class="products-interface">
-            <div>
-                <div class="row">
-                    <h1>Featured Shops</h1>
-                    <hr>
-                    <div class="row2">
-                        <?php if (count($result2) > 0): ?>
+        <div class="home">
+            <div class="row">
+                <h1>Shops you may like</h1>
+                <hr>
+                <div class="row2">
+                    <?php if (count($result2) > 0): ?>
                         <?php for ($i = 0; $i < count($result2); $i++): ?>
-                            <div class="shop-container" onclick="window.location.href='../shop/?shop_ID=<?= $result2[$i][0] ?>'">
+                            <div class="shop-container"
+                                onclick="window.location.href='../shop/?shop_ID=<?= $result2[$i][0] ?>'">
                                 <div class="shop-image">
                                     <img src="../img/<?= $result2[$i][0] ?>/shop_Image.png">
                                 </div>
                                 <br>
                                 <hr1>
-                                <br>
-                                <h1><?= $result2[$i][1] ?></h1>
+                                    <br>
+                                    <h1><?= $result2[$i][1] ?></h1>
                             </div>
                         <?php endfor; ?>
                     <?php endif; ?>
-                    </div>
                 </div>
+            </div>
+        </div>
+
+
+        <div class="products-interface">
+
                 <div class="row3">
                     <h1>SORT PRODUCTS:</h1>
                     <button class="sort-button <?= $namesort ? 'active-sort' : '' ?>" type="button"
@@ -112,8 +117,7 @@ if (isset($_GET['sort'])) {
                                         <h1 style="color: darkgreen;align-self: left;">P<?= $result[$i][2] ?></h1>
                                     </a>
                                     <div class="end">
-                                        <button type="button" onclick="showModal('description<?= $i ?>')"
-                                            class="info">Info</button>
+                                        <br>
                                         <button type="button" onclick="AddToCart()" class="add-cart">Add
                                             to Cart</button>
                                     </div>
@@ -131,9 +135,8 @@ if (isset($_GET['sort'])) {
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-    <?php include '../includes/footer.Include.php' ?>                           
+    <?php include '../includes/footer.Include.php' ?>
     <script src="../js/index.js"></script>
 </body>
 

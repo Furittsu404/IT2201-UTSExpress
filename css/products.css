@@ -30,9 +30,8 @@ html {
 }
 
 body {
-    background: #FFF;
+    background: #EEE;
     margin-top: 100px;
-    background: url('../img/bg.jpg');
 }
 
 section {
@@ -43,7 +42,7 @@ hr {
     width: 100%;
     height: 1px;
     border: none;
-    background-color: #DDD;
+    background-color: #EEE;
 }
 
 hr1 {
@@ -339,14 +338,17 @@ hr1 {
 .container {
     display: flex;
     flex-direction: column;
-    margin: 0rem 5% 0rem 5%;
-    padding: 3rem;
     display: flex;
 }
 
 .products-interface {
     display: grid;
     gap: 3rem;
+    background: url('../img/bg.jpg');
+    background-position: bottom;
+    background-size: cover;
+    padding: 3rem 5% 3rem 5%;
+    box-shadow: 0 -.5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .row {
@@ -646,7 +648,15 @@ h1 {
 .social-login i:hover {
     transform: scale(0.8);
 }
-
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: cover; 
+    padding: 1rem 5% 1rem 5%;
+    min-height: 45vh;
+}
 
 
 
@@ -865,6 +875,15 @@ h1 {
     .product-container {
         width: 120px;
         height: 170px;
+    }
+
+    .products-interface {
+        padding: 1rem 2rem 1rem 2rem;
+        gap: 1.5rem;
+    }
+
+    .home {
+        min-height: 35vh;
     }
 
     .shop-container {
