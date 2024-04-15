@@ -19,7 +19,6 @@ if (isset($_GET['search'])) {
         echo "<script>window.location.href='?'</script>";
     $searchq = $_GET['search'];
     $result = $database->showRecords('shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' LIMIT $offset, 15");
-    $result2 = $database->showRecords('shopdata', "WHERE shop_ID LIKE '%$searchq%' OR shop_Name LIKE '%$searchq%' LIMIT 0,6");
     $totalPages = $database->pagination('product_ID', 15, 'shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%'");
 }
 $sort1 = 1;
