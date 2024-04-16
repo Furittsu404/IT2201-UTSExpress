@@ -87,15 +87,6 @@ if (isset($_POST['delete'])) {
                     </div>
                 </div>
                 <br>
-                <div class="form-group row">
-                    <label for="driver_Location" class="col-sm-2 col-form-label fw-bold">Location</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="driver_Location" name="driver_Location"
-                            placeholder="Location (Optional)"
-                            value="<?php echo isset($result[0][4]) ? $result[0][4] : '' ?>" readonly>
-                    </div>
-                </div>
-                <br>
                 <div class="d-flex justify-content-end gap-3">
                     <button type="button" class="btn btn-secondary w-25"
                         onclick="window.location.href = 'profiles.php?page=<?php echo $_SESSION['page']; ?>'"><span class="btn-text">Cancel</span><i

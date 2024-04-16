@@ -199,14 +199,6 @@ if (isset($_GET['search'])) {
                             </div>
                         </div>
                         <br>
-                        <div class="form-group row">
-                            <label for="driver_Location" class="col-sm-2 col-form-label">Location</label>
-                            <div class="col-sm-10">
-                                <input type="text" oninput="validSymbol(this.id);" class="form-control" id="driver_Location" name="driver_Location"
-                                    placeholder="Location (Optional)">
-                            </div>
-                        </div>
-                        <br>
                         <div class="d-flex justify-content-end gap-3">
                             <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">Close</button>
                             <button type="submit" name="create" class="btn btn-success w-25">Create User</button>

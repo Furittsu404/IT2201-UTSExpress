@@ -297,6 +297,33 @@ hr1 {
 }
 
 /*===============================================================================================*/
+/*                             PAGINATION                         */
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 3rem;
+}
+.page-item {
+    width: 4rem;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+.page-link {
+    color: darkgreen;
+    border: 1px solid darkgreen;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+}
+.page-link.active {
+    background-color: darkgreen;
+    color: #FFF;
+}
+
+/*================================================================*/
 
 .end {
     display: grid;
@@ -390,6 +417,7 @@ h1 {
 
 .col {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     padding: 1rem;
     padding-top: 2rem;
@@ -411,6 +439,7 @@ h1 {
     text-align: center;
     font-size: 8px;
     font-weight: 600px;
+    border-radius: 8px;
 }
 
 .product-container:hover {
@@ -426,6 +455,7 @@ h1 {
     align-items: flex-start;
     justify-content: center;
     cursor: pointer;
+    border-radius: 8px 8px 0 0;
 }
 
 .product-image img {

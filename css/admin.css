@@ -30,6 +30,13 @@ body {
     justify-content: space-evenly;
 }
 
+tbody tr.expandable:hover {
+    background-color: green;
+    color: white;
+    transform: scale(1.02);
+    transition: all 0.25s ease-in-out;
+}
+
 .wrapper {
     display: flex;
 }

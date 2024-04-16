@@ -298,7 +298,34 @@ hr1 {
 }
 
 /*===============================================================================================*/
+/*                             PAGINATION                         */
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 3rem;
+}
+.page-item {
+    width: 4rem;
+    height: auto;
+    display: flex;
+    
+    justify-content: center;
+}
+.page-link {
+    color: darkgreen;
+    border: 1px solid darkgreen;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+}
+.page-link.active {
+    background-color: darkgreen;
+    color: #FFF;
+}
 
+/*================================================================*/
 .end {
     display: grid;
     width: 100%;
@@ -343,6 +370,7 @@ hr1 {
     padding: 3rem;
     padding-top: 1rem;
     display: flex;
+    min-height: 80vh;
 }
 .sort-container {
     display: flex;
