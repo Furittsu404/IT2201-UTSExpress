@@ -11,13 +11,13 @@
 
   <div class="icons" id="nav">
     <div class="fas fa-bars" id="menu-btn"></div>
-    <div class="fas fa-search" id="search-btn" style="display: <?= isset($shopPage) ? 'none' : ''?>;"></div>
+    <div class="fas fa-search" id="search-btn" style="display: none;"></div>
     <div class="fas fa-shopping-cart" id="cart-btn"></div>
     <?php
     if (isset($_SESSION['user_ID'])) {
       echo '<div class="fas fa-user" id="user-btn"></div>';
     } else {
-      echo '<div class="fas fa-user" id="user-btn" style="display: none;"></div>';
+      echo '<div class="fas fa-user" id="log-btn" onclick="window.location.href='."'../db/USER.login.php'".'"></div>';
     }
     ?>
   </div>
@@ -55,13 +55,6 @@
   </div>
 
 </header>
-<div class="search-bar" id="search">
-  <form action="" class="search-form" method="get">
-    <input type="search" name="search" id="search-box" placeholder="Search...."
-      value="<?= $_GET['search'] ?? NULL ?>" />
-    <label for="search-box" class="fas fa-search"></label>
-  </form>
-</div>
 <nav class="user-window">
   <?php if (isset($_SESSION['admin'])): ?>
     <a href="../admin">Admin Dashboard</a>

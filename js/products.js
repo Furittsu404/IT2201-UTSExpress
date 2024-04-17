@@ -14,6 +14,16 @@ function closeModal(var_id) {
   }, 250);
 }
 
+function resetSort(sortType) {
+  window.location.href = `?sort=${sortType}&search=${document.getElementById('search-box').value}`;
+}
+function searchQuery() {
+  if (document.getElementById('search-box').value !== '') {
+      return '&search=' + document.getElementById('search-box').value;
+  }
+  return '';
+}
+
 
 window.onclick = function (event) {
   if (event.target == document.querySelector(".active-modal")) {

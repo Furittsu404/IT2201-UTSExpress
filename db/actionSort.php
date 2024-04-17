@@ -40,7 +40,7 @@ class Sort extends File
             if (!isset($searchq))
                 $result = $this->showRecords('shopdata', "ORDER BY shop_$key $val LIMIT $offset, $num");
             else
-                $result = $this->showRecords('shopdata', "WHERE shop_Name LIKE '%$searchq%' OR shop_Location LIKE '%$searchq%' ORDER BY shop_$key $val LIMIT $offset, $num");
+                $result = $this->showRecords('shopdata', "WHERE shop_ID LIKE '%$searchq%' OR shop_Name LIKE '%$searchq%' OR shop_Location LIKE '%$searchq%' ORDER BY shop_$key $val LIMIT $offset, $num");
         } else if ($data == 'shopPage') {
             if (!isset($searchq))
                 $result = $this->showRecords('shopproducts', "WHERE shop_ID = $shopID ORDER BY product_$key $val LIMIT $offset, $num");

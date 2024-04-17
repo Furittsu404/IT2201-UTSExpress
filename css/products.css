@@ -30,8 +30,11 @@ html {
 }
 
 body {
-    background: #EEE;
+    background: #FFF;
     margin-top: 100px;
+    background: url('../img/bg.jpg');
+    background-position: bottom;
+    background-size: cover;
 }
 
 section {
@@ -148,30 +151,61 @@ hr1 {
     display: none;
 }
 
+.search {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 1rem;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    background-color: #FFF;
+    border: 1px solid darkgreen;
+    width: 80%;
+}
+
 .search-bar {
     position: fixed;
-    top: -50%;
     display: flex;
     width: 100%;
+    height: 100%;
     justify-content: center;
     z-index: 50;
 }
 
 .search-form {
-    top: 100%;
-    width: 60%;
-    height: 4.5rem;
+    width: 80%;
+    height: 5rem;
     background: #fff;
-    border-radius: .5rem;
+    padding: 0.5rem;
     overflow: hidden;
     display: flex;
     align-items: center;
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar.active {
-    top: 10%;
-    transition: .3s linear;
+.search-form input:focus {
+    border: 1px solid green;
+}
+
+.search-form button {
+    font-size: 2.2rem;
+    color: var(--white);
+    background-color: green !important;
+    cursor: pointer;
+    background: none;
+    height: 100%;
+    width: 6rem;
+}
+
+.search-form button:hover {
+    background-color: darkgreen !important;
 }
 
 .search-form input {
@@ -181,18 +215,7 @@ hr1 {
     text-transform: none;
     font-size: 1.6rem;
     color: var(--black);
-    padding: 0 1.5rem;
-}
-
-.search-form label {
-    font-size: 2.2rem;
-    padding-right: 1.5rem;
-    color: var(--black);
-    cursor: pointer;
-}
-
-.search-form label:hover {
-    color: var(--green);
+    padding: 0 1rem;
 }
 
 .header .shopping-cart {
@@ -365,17 +388,13 @@ hr1 {
 .container {
     display: flex;
     flex-direction: column;
-    display: flex;
 }
 
 .products-interface {
     display: grid;
-    gap: 3rem;
-    background: url('../img/bg.jpg');
-    background-position: bottom;
-    background-size: cover;
+    background-color: #EEE;
+    gap: 1rem;
     padding: 3rem 5% 3rem 5%;
-    box-shadow: 0 -.5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .row {
@@ -686,6 +705,8 @@ h1 {
     background-size: cover; 
     padding: 1rem 5% 1rem 5%;
     min-height: 45vh;
+    z-index: 1;
+    box-shadow: 0 6px 10px -10px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -736,7 +757,7 @@ h1 {
     }
 
     .search-form {
-        width: 90%;
+        width: 80%;
     }
 
     .header .navbar {

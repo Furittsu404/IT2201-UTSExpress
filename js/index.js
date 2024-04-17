@@ -107,3 +107,13 @@ var swiper = new Swiper(".product-slider", {
     },
   },
 });
+
+function resetSort(sortType) {
+  window.location.href = `?sort=${sortType}&search=${document.getElementById('search-box').value}`;
+}
+function searchQuery() {
+  if (document.getElementById('search-box').value !== '') {
+      return '&search=' + document.getElementById('search-box').value;
+  }
+  return '';
+}

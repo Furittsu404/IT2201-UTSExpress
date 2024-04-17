@@ -10,7 +10,7 @@ $database = new Sort($conn->connect());
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($page - 1) * 24;
 $_SESSION['page'] = $page;
-$result2 = $database->showRecords('shopdata', "ORDER BY rand() LIMIT $offset, 24");
+$result2 = $database->showRecords('shopdata', "LIMIT $offset, 24");
 $totalPages = $database->pagination('shop_ID', 24, 'shopdata');
 
 if (isset($_GET['search'])) {
@@ -20,11 +20,8 @@ if (isset($_GET['search'])) {
     $result2 = $database->showRecords('shopdata', "WHERE shop_ID LIKE '%$searchq%' OR shop_Name LIKE '%$searchq%' OR shop_Location LIKE '%$searchq%' LIMIT $offset,24");
     $totalPages = $database->pagination('shop_ID', 24, 'shopdata', "WHERE shop_ID LIKE '%$searchq%' OR shop_Name LIKE '%$searchq%' OR shop_Location LIKE '%$searchq%'");
 }
-
-$database->sort1 = 1;
-$database->sort2 = 2;
-if (isset($_GET['sort'])) {
-    $result2 = $database->sort('shops',$offset,24,$_GET['sort'], $searchq ?? NULL);
+if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
+    $result2 = $database->sort('shops', $offset, 24, $_GET['sort'], $searchq ?? NULL);
 } else {
     $database->namesort = 0;
     $database->locsort = 0;
@@ -43,25 +40,31 @@ if (isset($_GET['sort'])) {
 
 <body>
     <?php include '../includes/header.Include.php' ?>
-
+    <div class="search" id="search">
+        <div class="search-form" method="get" action="">
+            <input type="search" name="search" id="search-box" placeholder="Search...."
+                value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+            <button type="submit" class="fas fa-search"></button>
+        </div>
+    </div>
     <div class="sort-container">
         <div class="products-interface">
             <div class="row2">
                 <h1>SORT:</h1>
                 <button class="sort-button <?= $database->namesort ? 'active-sort' : '' ?>" type="button"
-                    onclick="window.location.href='?sort=<?= $database->sort1 ? 'name-asc' : 'name-desc'; ?><?php if (isset($_GET['search'])) {echo '&search=' . $_GET['search']; }?>'">Name
+                    onclick="window.location.href='?sort=<?= $database->sort1 ? 'name-asc' : 'name-desc'; ?>'+searchQuery();">Name
                     <?= $database->sort1 ? '<i class="bi bi-arrow-up up"></i>' : '<i class="bi bi-arrow-down down"></i>' ?></button>
                 <button class="sort-button <?= $database->locsort ? 'active-sort' : '' ?>" type="button"
-                    onclick="window.location.href='?sort=<?= $database->sort2 ? 'location-asc' : 'location-desc'; ?><?php if (isset($_GET['search'])) {echo '&search=' . $_GET['search']; }?>'">Location
+                    onclick="window.location.href='?sort=<?= $database->sort2 ? 'location-asc' : 'location-desc'; ?>'+searchQuery();">Location
                     <?= $database->sort2 ? '<i class="bi bi-arrow-up up"></i>' : '<i class="bi bi-arrow-down down"></i>' ?></button>
-                <?php if (isset($_GET['sort']) || isset($_GET['search'])): ?>
-                    <button class="sort-button reset-sort" type="button" onclick="window.location.href='?'">Reset</button>
+                <?php if (isset($_GET['sort']) && $_GET['sort'] != 'reset'): ?>
+                    <button class="sort-button reset-sort" type="button" onclick="resetSort('reset')">Reset</button>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="search-results">
         <div class="products-interface">
             <div class="row">
                 <h1>Shop List</h1>
@@ -89,14 +92,18 @@ if (isset($_GET['sort'])) {
                             <li class="page-item">
                                 <a class="page-link" href="?page=1<?php if (isset($_GET['search'])) {
                                     echo '&search=' . $searchq;
-                                } ?>" aria-label="Previous">
+                                } ?><?php if (isset($_GET['sort'])) {
+                                     echo '&sort=' . $_GET['sort'];
+                                 } ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;&laquo;</span>
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link" href="?page=<?= ($page - 1) ?><?php if (isset($_GET['search'])) {
                                         echo '&search=' . $searchq;
-                                    } ?>" aria-label="Previous">
+                                    } ?><?php if (isset($_GET['sort'])) {
+                                         echo '&sort=' . $_GET['sort'];
+                                     } ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -104,21 +111,27 @@ if (isset($_GET['sort'])) {
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                             <li class="page-item"><a class="page-link <?= ($i === $page) ? "active" : "" ?>" href="?page=<?= $i ?><?php if (isset($_GET['search'])) {
                                           echo '&search=' . $searchq;
-                                      } ?>"><?= $i ?></a>
+                                      } ?><?php if (isset($_GET['sort'])) {
+                                           echo '&sort=' . $_GET['sort'];
+                                       } ?>"><?= $i ?></a>
                             </li>
                         <?php endfor; ?>
                         <?php if ($page < $totalPages): ?>
                             <li class="page-item">
                                 <a class="page-link" href="?page=<?= ($page + 1) ?><?php if (isset($_GET['search'])) {
                                         echo '&search=' . $searchq;
-                                    } ?>" aria-label="Next">
+                                    } ?><?php if (isset($_GET['sort'])) {
+                                         echo '&sort=' . $_GET['sort'];
+                                     } ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link" href="?page=<?= $totalPages ?><?php if (isset($_GET['search'])) {
                                       echo '&search=' . $searchq;
-                                  } ?>" aria-label="Next">
+                                  } ?><?php if (isset($_GET['sort'])) {
+                                       echo '&sort=' . $_GET['sort'];
+                                   } ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;&raquo;</span>
                                 </a>
                             </li>
@@ -130,6 +143,23 @@ if (isset($_GET['sort'])) {
     </div>
     <?php include '../includes/footer.Include.php' ?>
     <script src="../js/index.js"></script>
+    <script>
+        function handleSearchQuery() {
+            const searchQuery = document.getElementById('search-box').value;
+            const sortType = '<?= isset($_GET['sort']) ? $_GET['sort'] : 'reset' ?>';
+            const page = <?= $page ? $page : NULL ?>;
+
+            const search = new XMLHttpRequest();
+            search.open('GET', `search.php?search=${searchQuery}<?= isset($_GET['sort']) ? '&sort=${sortType}' : '' ?><?= isset($_GET['page']) ? '&page=${page}' : '' ?>`, true);
+            search.onreadystatechange = function () {
+                if (search.readyState === 4 && search.status === 200) {
+                    document.getElementById('search-results').innerHTML = search.responseText;
+                }
+            };
+            search.send();
+        }
+        document.getElementById('search-box').addEventListener('input', handleSearchQuery);
+    </script>
 </body>
 
 </html>

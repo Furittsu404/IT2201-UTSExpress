@@ -20,10 +20,8 @@ if (isset($_GET['search'])) {
     $result = $database->showRecords('shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' LIMIT $offset, 24");
     $totalPages = $database->pagination('product_ID', 24, 'shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%'");
 }
-$database->sort1 = 1;
-$database->sort2 = 1;
-if (isset($_GET['sort'])) {
-    $result = $database->sort('products',$offset,24,$_GET['sort'], $searchq ?? NULL);
+if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
+    $result = $database->sort('products', $offset, 24, $_GET['sort'], $searchq ?? NULL);
 } else {
     $database->namesort = 0;
     $database->pricesort = 0;
@@ -42,7 +40,13 @@ if (isset($_GET['sort'])) {
 
 <body>
     <?php include '../includes/header.Include.php' ?>
-
+    <div class="search" id="search">
+        <form class="search-form" method="get" action="">
+            <input type="search" name="search" id="search-box" placeholder="Search...."
+                value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+            <button type="submit" class="fas fa-search"></button>
+        </form>
+    </div>
     <div class="container">
         <div class="home">
             <div class="row">
@@ -73,16 +77,16 @@ if (isset($_GET['sort'])) {
             <div class="row3">
                 <h1>SORT PRODUCTS:</h1>
                 <button class="sort-button <?= $database->namesort ? 'active-sort' : '' ?>" type="button"
-                    onclick="window.location.href='?sort=<?= $database->sort1 ? 'name-asc' : 'name-desc'; ?><?php if (isset($_GET['search'])) {echo '&search=' . $_GET['search']; }?>'">Name
+                    onclick="window.location.href='?sort=<?= $database->sort1 ? 'name-asc' : 'name-desc'; ?>'+searchQuery();">Name
                     <?= $database->sort1 ? '<i class="bi bi-arrow-up up"></i>' : '<i class="bi bi-arrow-down down"></i>' ?></button>
                 <button class="sort-button <?= $database->pricesort ? 'active-sort' : '' ?>" type="button"
-                    onclick="window.location.href='?sort=<?= $database->sort2 ? 'price-asc' : 'price-desc'; ?><?php if (isset($_GET['search'])) {echo '&search=' . $_GET['search']; }?>'">Price
+                    onclick="window.location.href='?sort=<?= $database->sort2 ? 'price-asc' : 'price-desc'; ?>'+searchQuery();">Price
                     <?= $database->sort2 ? '<i class="bi bi-arrow-up up"></i>' : '<i class="bi bi-arrow-down down"></i>' ?></button>
-                <?php if (isset($_GET['sort']) || isset($_GET['search'])): ?>
-                    <button class="sort-button reset-sort" type="button" onclick="window.location.href='?'">Reset</button>
+                <?php if (isset($_GET['sort']) && $_GET['sort'] != 'reset'): ?>
+                    <button class="sort-button reset-sort" type="button" onclick="resetSort('reset')">Reset</button>
                 <?php endif; ?>
             </div>
-            <div class="col">
+            <div class="col" id="search-results">
                 <h1>Products</h1>
                 <hr>
                 <div class="container2">
@@ -120,14 +124,20 @@ if (isset($_GET['sort'])) {
                             <li class="page-item">
                                 <a class="page-link" href="?page=1<?php if (isset($_GET['search'])) {
                                     echo '&search=' . $searchq;
-                                }if (isset($_GET['sort'])) {echo '&sort=' . $_GET["sort"]; } ?>" aria-label="Previous">
+                                }
+                                if (isset($_GET['sort'])) {
+                                    echo '&sort=' . $_GET["sort"];
+                                } ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;&laquo;</span>
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link" href="?page=<?= ($page - 1) ?><?php if (isset($_GET['search'])) {
                                         echo '&search=' . $searchq;
-                                    }if (isset($_GET['sort'])) {echo '&sort=' . $_GET["sort"]; }?>" aria-label="Previous">
+                                    }
+                                    if (isset($_GET['sort'])) {
+                                        echo '&sort=' . $_GET["sort"];
+                                    } ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -135,21 +145,30 @@ if (isset($_GET['sort'])) {
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                             <li class="page-item"><a class="page-link <?= ($i === $page) ? "active" : "" ?>" href="?page=<?= $i ?><?php if (isset($_GET['search'])) {
                                           echo '&search=' . $searchq;
-                                      }if (isset($_GET['sort'])) {echo '&sort=' . $_GET["sort"]; } ?>"><?= $i ?></a>
+                                      }
+                                      if (isset($_GET['sort'])) {
+                                          echo '&sort=' . $_GET["sort"];
+                                      } ?>"><?= $i ?></a>
                             </li>
                         <?php endfor; ?>
                         <?php if ($page < $totalPages): ?>
                             <li class="page-item">
                                 <a class="page-link" href="?page=<?= ($page + 1) ?><?php if (isset($_GET['search'])) {
                                         echo '&search=' . $searchq;
-                                    }if (isset($_GET['sort'])) {echo '&sort=' . $_GET["sort"]; } ?>" aria-label="Next">
+                                    }
+                                    if (isset($_GET['sort'])) {
+                                        echo '&sort=' . $_GET["sort"];
+                                    } ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link" href="?page=<?= $totalPages ?><?php if (isset($_GET['search'])) {
                                       echo '&search=' . $searchq;
-                                  }if (isset($_GET['sort'])) {echo '&sort=' . $_GET["sort"]; } ?>" aria-label="Next">
+                                  }
+                                  if (isset($_GET['sort'])) {
+                                      echo '&sort=' . $_GET["sort"];
+                                  } ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;&raquo;</span>
                                 </a>
                             </li>
@@ -162,6 +181,23 @@ if (isset($_GET['sort'])) {
     <?php include '../includes/footer.Include.php' ?>
     <script src="../js/index.js"></script>
     <script src="../js/products.js"></script>
+    <script>
+        function handleSearchQuery() {
+            const searchQuery = document.getElementById('search-box').value;
+            const sortType = '<?= isset($_GET['sort']) ? $_GET['sort'] : 'reset' ?>';
+            const page = <?= $page ? $page : NULL ?>;
+
+            const search = new XMLHttpRequest();
+            search.open('GET', `search.php?search=${searchQuery}<?= isset($_GET['sort']) ? '&sort=${sortType}' : '' ?><?= isset($_GET['page']) ? '&page=${page}' : '' ?>`, true);
+            search.onreadystatechange = function () {
+                if (search.readyState === 4 && search.status === 200) {
+                    document.getElementById('search-results').innerHTML = search.responseText;
+                }
+            };
+            search.send();
+        }
+        document.getElementById('search-box').addEventListener('input', handleSearchQuery);
+    </script>
 </body>
 
 </html>
