@@ -210,7 +210,10 @@ hr {
     border-radius: .5rem;
     box-shadow: var(--box-shadow);
     width: 35rem;
+    max-height: 70vh;
     background: #fff;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .header .shopping-cart.active {
@@ -226,8 +229,15 @@ hr {
     margin: 1rem 0;
 }
 
-.header .shopping-cart .box img {
+.header .shopping-cart .box .cart-img-container {
     height: 10rem;
+    width: 10rem;
+}
+
+.header .shopping-cart .box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .header .shopping-cart .box .fa-trash {
@@ -917,10 +927,7 @@ hr {
     color: var(--black);
     font-size: 1.5rem;
     padding: .5rem 0;
-}
-
-.static {
-}   
+} 
 
 a.cart-icon {
     font-size: 1.75rem;

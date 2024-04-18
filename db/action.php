@@ -1,7 +1,7 @@
 <?php
 class Database
 {
-    private $conn;
+    protected $conn;
 
     public function __construct($conn)
     {
@@ -83,8 +83,4 @@ class Database
         return $totalPages;
     }
 
-    public function __destruct()
-    {
-        $this->conn->close();
-    }
 }

@@ -2,15 +2,15 @@
 session_start();
 include '../db/actionSort.php';
 include '../db/connection.php';
-include '../db/cart.php';
+include '../db/cartAction.php';
 
-$cart = new cart();
 $_SESSION['site'] = 'Shops';
 $shopPage = true;
 $shop_ID = $_GET['shop_ID'];
 
 $conn = new Connection();
 $database = new Sort($conn->connect());
+$cart = new cart($conn->connect());
 
 if (isset($_POST['create'])) {
     $database->validateFile($_FILES, key($_FILES));
@@ -35,14 +35,15 @@ if (isset($_GET['search'])) {
     $totalPages = $database->pagination('product_ID', 9, 'shopproducts', "WHERE shop_ID = $shop_ID AND product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%'");
 }
 
-$database->sort1 = 1;
-$database->sort2 = 2;
 if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
     $result = $database->sort('shopPage', $offset, 9, $_GET['sort'], $searchq ?? NULL, $_GET['shop_ID']);
 } else {
     $database->namesort = 0;
     $database->pricesort = 0;
 }
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+  }
 ?>
 
 
@@ -52,7 +53,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
 <head>
     <?php include '../includes/head.Include.php'; ?>
     <title><?= $result2[0][1] ?></title>
-    <link rel="stylesheet" href="shopPage.css">
+    <link rel="stylesheet" href="../css/shopPage.css">
 
 </head>
 
@@ -91,7 +92,6 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                             </div>
                         <?php endfor; ?>
                     <?php endif; ?>
-
                 </div>
             </section>
         <?php endif; ?>
@@ -108,8 +108,8 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                     onclick="window.location.href='?shop_ID=<?= $_GET['shop_ID'] ?>&sort=<?= $database->sort2 ? 'price-asc' : 'price-desc'; ?>'+searchQuery();">Price
                     <?= $database->sort2 ? '<i class="bi bi-arrow-up up"></i>' : '<i class="bi bi-arrow-down down"></i>' ?></button>
                 <?php if (isset($_GET['sort']) && $_GET['sort'] != 'reset'): ?>
-                    <button class="sort-button reset-sort" type="button" onclick="window.location.href='?shop_ID=<?= $_GET['shop_ID'] ?><?php if (isset($_GET['search'])) {
-                          echo '&search=' . $_GET['search'];
+                    <button class="sort-button reset-sort" type="button" onclick="window.location.href='?shop_ID=<?= $_GET['shop_ID'] ?><?php if (isset($_GET['search']) && $_GET['search'] != null) {
+                          echo '&search=' . $_GET['search'] ;
                       } ?>'">Reset</button>
                 <?php endif; ?>
             </div>
@@ -121,11 +121,11 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                             <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" alt="">
                             <h3><?= $result[$i][1]; ?></h3>
                             <p>Price: P<?= $result[$i][2]; ?></p>
-                            <a id="cartbtn" class="btn cartbtn">Add to Cart</a>
+                            <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
                         </div>
                     <?php endfor; ?>
                 <?php endif; ?>
-                <?php if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
+                <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
                     <div class="product" name="add-product" onclick="showModal('add-product-form')">
                         <i class="bi bi-plus-square"></i>
                         <h3>Add Product</h3>
@@ -249,7 +249,6 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
 
     </section>
     <?php include '../includes/footer.Include.php' ?>
-    <script src="../js/index.js"></script>
     <script src="../js/products.js"></script>
     <script>
         function handleSearchQuery() {
@@ -268,21 +267,6 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
             search.send();
         }
         document.getElementById('search-box').addEventListener('input', handleSearchQuery);
-
-        $(document).ready(function () {
-            $('.cartbtn').on('click', function (e) {
-                e.preventDefault();
-                let productId = $(this).data('id');
-                $.ajax({
-                    url: '../includes/addToCart.php',
-                    type: 'POST',
-                    data: { id: productId },
-                    success: function (response) {
-                        $('#cart-icon').text(response);
-                    }
-                });
-            });
-        });
     </script>
 </body>
 

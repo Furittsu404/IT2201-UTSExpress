@@ -1,11 +1,13 @@
 <?php
 include 'action.php';
+include 'cartAction.php';
+
 class Authentication extends Database
 {
 
     public function login($email, $password)
     {
-        $_SESSION['cart']=[];
+        $cart = new cart($this->conn);
         $data = $this->showRecords('userlogin', "WHERE user_Email = '$email'");
         $isadmin = $this->showRecords('adminlogin', "WHERE admin_Email = '$email'");
         $isshop = $this->showRecords('shoplogin', "WHERE shop_Email = '$email'");
@@ -17,6 +19,7 @@ class Authentication extends Database
                 $data2 = $this->showRecords('userdata', "WHERE user_ID = '$user_ID'");
                 $_SESSION['user_Nickname'] = $data2[0][2];
                 $_SESSION['user'] = true;
+                $_SESSION['cart'] = $cart->getCart() ?? [];
                 echo "<script>window.location.href='../';</script>";
                 exit();
             }
@@ -26,6 +29,7 @@ class Authentication extends Database
                 $_SESSION['user_ID'] = $isadmin[0][0];
                 $_SESSION['user_Nickname'] = $isadmin[0][1];
                 $_SESSION['admin'] = true;
+                $_SESSION['cart'] = $cart->getCart() ?? [];
                 echo "<script>window.location.href='../admin';</script>";
                 exit();
             }
@@ -38,6 +42,7 @@ class Authentication extends Database
                 $data2 = $this->showRecords('shopdata', "WHERE shop_ID = '$shop_ID'");
                 $_SESSION['user_Nickname'] = $data2[0][1];
                 $_SESSION['shop'] = true;
+                $_SESSION['cart'] = $cart->getCart() ?? [];
                 echo "<script>window.location.href='../';</script>";
                 exit();
             }
@@ -49,6 +54,7 @@ class Authentication extends Database
                 $data2 = $this->showRecords('driverdata', "WHERE driver_ID = '$driver_ID'");
                 $_SESSION['user_Nickname'] = $data2[0][1];
                 $_SESSION['driver'] = true;
+                $_SESSION['cart'] = $cart->getCart() ?? [];
                 echo "<script>window.location.href='../';</script>";
                 exit();
             }

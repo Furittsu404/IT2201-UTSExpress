@@ -225,7 +225,10 @@ hr1 {
     border-radius: .5rem;
     box-shadow: var(--box-shadow);
     width: 35rem;
+    max-height: 70vh;
     background: #fff;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .header .shopping-cart.active {
@@ -241,8 +244,15 @@ hr1 {
     margin: 1rem 0;
 }
 
-.header .shopping-cart .box img {
+.header .shopping-cart .box .cart-img-container {
     height: 10rem;
+    width: 10rem;
+}
+
+.header .shopping-cart .box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .header .shopping-cart .box .fa-trash {
@@ -286,6 +296,23 @@ hr1 {
     text-align: center;
     margin: 1rem;
 }
+.btn {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: .5rem;
+    border: .2rem solid var(--black);
+    color: var(--black);
+    cursor: pointer;
+    background: none;
+}
+
+.btn:hover {
+    background: var(--green);
+    color: white;
+}
+
 
 .user-window {
     position: fixed;
@@ -671,16 +698,16 @@ h1 {
     transform: scale(0.8);
 }
 
-.static {
-    padding-left: 1rem;
-}
 
 a.cart-icon {
     font-size: 1.75rem;
-    position: relative;
+    position: absolute;
     border-radius: 50%;
-    top: -40%;
-    left: -20%;
+    width: 3rem;
+    height: 3rem;
+    line-height: 3.2rem;
+    background-color: yellowgreen;
+    top: 5%;
 }
 
 

@@ -76,7 +76,7 @@ if (isset($_GET['sort'])) {
             onclick="window.location.href='?shop_ID=<?= $_GET['shop_ID'] ?>&sort=<?= $database->sort2 ? 'price-asc' : 'price-desc'; ?>'+searchQuery();">Price
             <?= $database->sort2 ? '<i class="bi bi-arrow-up up"></i>' : '<i class="bi bi-arrow-down down"></i>' ?></button>
         <?php if (isset($_GET['sort']) && $_GET['sort'] != 'reset'): ?>
-            <button class="sort-button reset-sort" type="button" onclick="window.location.href='?shop_ID=<?= $_GET['shop_ID'] ?><?php if (isset($_GET['search'])) {
+            <button class="sort-button reset-sort" type="button" onclick="window.location.href='?shop_ID=<?= $_GET['shop_ID'] ?><?php if (isset($_GET['search']) && $_GET['search'] != null) {
                   echo '&search=' . $_GET['search'];
               } ?>'">Reset</button>
         <?php endif; ?>

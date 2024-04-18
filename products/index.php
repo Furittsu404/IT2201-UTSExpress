@@ -2,10 +2,12 @@
 session_start();
 include '../db/actionSort.php';
 include '../db/connection.php';
+include '../db/cartAction.php';
 $_SESSION['site'] = 'Products';
 
 $conn = new Connection();
 $database = new Sort($conn->connect());
+$cart = new cart($conn->connect());
 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($page - 1) * 24;
@@ -26,6 +28,9 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
     $database->namesort = 0;
     $database->pricesort = 0;
 }
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+  }
 ?>
 
 
@@ -103,7 +108,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                                 </a>
                                 <div class="end">
                                     <br>
-                                    <button type="button" id="add-to-cart-btn" class="add-cart">Add
+                                    <button type="button" class="add-cart cartbtn" data-id="<?=$result[$i][0]?>">Add
                                         to Cart</button>
                                 </div>
                             </div>
@@ -179,7 +184,6 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
         </div>
     </div>
     <?php include '../includes/footer.Include.php' ?>
-    <script src="../js/index.js"></script>
     <script src="../js/products.js"></script>
     <script>
         function handleSearchQuery() {

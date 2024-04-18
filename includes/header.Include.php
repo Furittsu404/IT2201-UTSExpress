@@ -1,5 +1,4 @@
-<?php if (!isset($_SESSION['cart']))
-  $_SESSION['cart'] = []; ?>
+<?php include_once '../db/action.php'; ?>
 
 <header class="header" id="header">
   <a href="../"><img src="../img/UTS-Express.png" class="logo" /></a>
@@ -19,7 +18,7 @@
     <div class="fas fa-bars" id="menu-btn"></div>
     <div class="fas fa-search" id="search-btn" style="display: none;"></div>
     <div class="fas fa-shopping-cart static" id="cart-btn"><a id="cart-icon"
-        class="cart-icon"><?= array_sum($_SESSION['cart']); ?></a></div>
+        class="cart-icon"><?= sizeof($_SESSION['cart']); ?></a></div>
     <?php
     if (isset($_SESSION['user_ID'])) {
       echo '<div class="fas fa-user" id="user-btn"></div>';
@@ -30,35 +29,25 @@
   </div>
 
   <div class="shopping-cart" id="cart">
-    <div class="box">
-      <i class="fas fa-trash"></i>
-      <img src="img/carbo.png" alt="" />
-      <div class="content">
-        <h3>Carbo Pare</h3>
-        <span class="price">40PHP</span>
-        <span class="quantity">qty : 1</span>
-      </div>
+    <a class="btn" style="color: black">checkout</a>
+    <div id="cart-content">
+      <div class="total">total : <?= sizeof($_SESSION['cart']) ?></div>
+      <div class="total" style="padding: 0;font-size: 2rem;">Cost : P<?= $cart->getTotal() ?></div>
+      <?php foreach ($_SESSION['cart'] as $id => $quantity): ?>
+        <?php $itemData = $database->showRecords('shopproducts', "WHERE product_ID = '$id'"); ?>
+        <div class="box">
+          <i class="fas fa-trash trash-btn" data-id="<?= $id ?>"></i>
+          <div class="cart-img-container">
+            <img src="../img/<?= $itemData[0][5] ?>/products/<?= $id ?>.png" alt="" />
+          </div>
+          <div class="content">
+            <h3><?= $itemData[0][1] ?></h3>
+            <span class="price">P<?= $itemData[0][2] ?></span>
+            <span class="quantity">qty : <?= $quantity ?></span>
+          </div>
+        </div>
+      <?php endforeach; ?>
     </div>
-    <div class="box">
-      <i class="fas fa-trash"></i>
-      <img src="img/carbo.png" alt="" />
-      <div class="content">
-        <h3>Carbo Pare</h3>
-        <span class="price">40PHP</span>
-        <span class="quantity">qty : 1</span>
-      </div>
-    </div>
-    <div class="box">
-      <i class="fas fa-trash"></i>
-      <img src="img/carbo.png" alt="" />
-      <div class="content">
-        <h3>Carbo Pare</h3>
-        <span class="price">40PHP</span>
-        <span class="quantity">qty : 1</span>
-      </div>
-    </div>
-    <div class="total">total : 1000</div>
-    <a href="#" class="btn" style="color: black">checkout</a>
   </div>
 
 </header>
@@ -87,3 +76,15 @@
     <a href="../db/USER.login.php#reg">Register</a>
   <?php endif; ?>
 </nav>
+
+<div id="addCartModal" class="modal">
+  <div class="modal-content" style="width: 300px;">
+  <div>
+    <div class="close" onclick="closeModal('addCartModal')">&times;</div>
+    <h1>Product Added!</h1>
+  </div>
+    <hr><br>
+    <h1 style="text-align:center;font-size: 8rem;color: green;"><i class="bi bi-check-circle"></i></h1>
+    <h1 style="font-weight: 400;text-align: center;">Product Added to Cart Successfuly.</h1>
+  </div>
+</div>

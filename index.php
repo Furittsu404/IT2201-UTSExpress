@@ -1,11 +1,21 @@
 <?php
 session_start();
+include 'db/connection.php';
+include 'db/cartAction.php';
+include 'db/action.php';
+
+$conn = new Connection();
+$database = new Database($conn->connect());
+$cart = new cart($conn->connect());
 $_SESSION['site'] = 'Home';
 if (isset($_GET['search'])) {
   $searchq = $_GET['search'];
-  header("Location: products/?search=".$searchq);
+  header("Location: products/?search=" . $searchq);
 }
-$bg = rand(1,4);
+if (!isset($_SESSION['cart'])) {
+  $_SESSION['cart'] = [];
+}
+$bg = rand(1, 4);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +30,8 @@ $bg = rand(1,4);
 <body>
   <?php include 'includes/INDEX.header.Include.php'; ?>
 
-  <section class="home" id="home" style="background: url(img/<?= $bg ?>.jpg) no-repeat;background-position: bottom;background-size: cover; ">
+  <section class="home" id="home"
+    style="background: url(img/<?= $bg ?>.jpg) no-repeat;background-position: bottom;background-size: cover; ">
     <div class="content">
       <h2>UTS CLSU<span> Express</span></h2>
       <p>Welcome!</p>
@@ -31,7 +42,7 @@ $bg = rand(1,4);
              <a href="db/USER.login.php" class="btn login">Login</a>
              </div>';
       else {
-        echo '<h3 class="user_Nickname">'. $_SESSION["user_Nickname"] . '</h3>';
+        echo '<h3 class="user_Nickname">' . $_SESSION["user_Nickname"] . '</h3>';
       }
       ?>
     </div>
@@ -139,6 +150,30 @@ $bg = rand(1,4);
   <?php include 'includes/INDEX.footer.Include.php' ?>
 
   <script src="js/index.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.trash-btn').on('click', function (e) {
+        e.preventDefault();
+        let productId = $(this).data('id');
+        $.ajax({
+          url: 'includes/addToCart.php',
+          type: 'POST',
+          data: { id: productId, delete: true },
+          success: function (response) {
+            $('#cart-icon').text(response);
+          }
+        });
+        $.ajax({
+          url: 'includes/INDEX.cartUpdate.php',
+          type: 'POST',
+          data: { id: productId, delete: true },
+          success: function (response) {
+            $('#cart-content').html(response);
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
