@@ -84,5 +84,19 @@ var swiper = new Swiper(".review-slider",{
     },
 });
 
+$(document).ready(function () {
+    $('.btn').on('click', function (e) {
+        e.preventDefault();
+        let productId = $(this).data('id');
+        $.ajax({
+            url: 'add_to_cart.php',
+            type: 'POST',
+            data: { id: productId },
+            success: function (response) {
+                $('#cart-icon').text(response);
+            }
+        });
+    });
+});
 
 

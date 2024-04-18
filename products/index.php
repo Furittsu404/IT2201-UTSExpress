@@ -41,11 +41,11 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
 <body>
     <?php include '../includes/header.Include.php' ?>
     <div class="search" id="search">
-        <form class="search-form" method="get" action="">
+        <div class="search-form" method="get" action="">
             <input type="search" name="search" id="search-box" placeholder="Search...."
                 value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
             <button type="submit" class="fas fa-search"></button>
-        </form>
+        </div>
     </div>
     <div class="container">
         <div class="home">
@@ -103,7 +103,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                                 </a>
                                 <div class="end">
                                     <br>
-                                    <button type="button" onclick="AddToCart()" class="add-cart">Add
+                                    <button type="button" id="add-to-cart-btn" class="add-cart">Add
                                         to Cart</button>
                                 </div>
                             </div>

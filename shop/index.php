@@ -2,6 +2,9 @@
 session_start();
 include '../db/actionSort.php';
 include '../db/connection.php';
+include '../db/cart.php';
+
+$cart = new cart();
 $_SESSION['site'] = 'Shops';
 $shopPage = true;
 $shop_ID = $_GET['shop_ID'];
@@ -64,12 +67,11 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
         </div>
     </section>
     <div class="search" id="search">
-        <form class="search-form" method="get" action="">
-            <input type="hidden" name="shop_ID" value="<?= $_GET['shop_ID'] ?>">
+        <div class="search-form" method="get" action="">
             <input type="search" name="search" id="search-box" placeholder="Search...."
-                value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>" required>
+                value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
             <button type="submit" class="fas fa-search"></button>
-        </form>
+        </div>
     </div>
     <div id="search-results">
         <?php if (!isset($_GET['search'])): ?>
@@ -85,7 +87,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                                 <img src="../img/<?= $shop_ID ?>/products/<?= $new[$i][4]; ?>" alt="">
                                 <h3><?= $new[$i][1]; ?></h3>
                                 <p>Price: P<?= $new[$i][2]; ?></p>
-                                <a href="#" class="btn">Add To Cart</a>
+                                <a id="cartbtn" class="btn cartbtn" data-id="<?= $new[$i][0]; ?>">Add To Cart</a>
                             </div>
                         <?php endfor; ?>
                     <?php endif; ?>
@@ -119,7 +121,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                             <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" alt="">
                             <h3><?= $result[$i][1]; ?></h3>
                             <p>Price: P<?= $result[$i][2]; ?></p>
-                            <a href="#" class="btn">Add to Cart</a>
+                            <a id="cartbtn" class="btn cartbtn">Add to Cart</a>
                         </div>
                     <?php endfor; ?>
                 <?php endif; ?>
@@ -246,12 +248,6 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
         </div>
 
     </section>
-    <form class="search-form" id="ajax-search-form">
-        <input type="hidden" name="shop_ID" value="<?= $_GET['shop_ID'] ?>">
-        <input type="search" name="search" id="search-box" placeholder="Search...."
-            value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>" required>
-        <button type="submit" class="fas fa-search"></button>
-    </form>
     <?php include '../includes/footer.Include.php' ?>
     <script src="../js/index.js"></script>
     <script src="../js/products.js"></script>
@@ -272,21 +268,21 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
             search.send();
         }
         document.getElementById('search-box').addEventListener('input', handleSearchQuery);
-        $(document).ready(function() {
-    $('#ajax-search-form').on('submit', function(e) {
-        e.preventDefault();
-        let searchQuery = $('#search-box').val();
-        let shopId = $('input[name="shop_ID"]').val();
-        $.ajax({
-            url: 'search.php',
-            type: 'GET',
-            data: { search: searchQuery, shop_ID: shopId },
-            success: function(response) {
-                $('#search-results').html(response);
-            }
+
+        $(document).ready(function () {
+            $('.cartbtn').on('click', function (e) {
+                e.preventDefault();
+                let productId = $(this).data('id');
+                $.ajax({
+                    url: '../includes/addToCart.php',
+                    type: 'POST',
+                    data: { id: productId },
+                    success: function (response) {
+                        $('#cart-icon').text(response);
+                    }
+                });
+            });
         });
-    });
-});
     </script>
 </body>
 

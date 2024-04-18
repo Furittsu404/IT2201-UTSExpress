@@ -5,6 +5,7 @@ class Authentication extends Database
 
     public function login($email, $password)
     {
+        $_SESSION['cart']=[];
         $data = $this->showRecords('userlogin', "WHERE user_Email = '$email'");
         $isadmin = $this->showRecords('adminlogin', "WHERE admin_Email = '$email'");
         $isshop = $this->showRecords('shoplogin', "WHERE shop_Email = '$email'");
@@ -59,6 +60,7 @@ class Authentication extends Database
 
     public function register($email, $form)
     {
+        $_SESSION['cart']=[];
         $data = $this->showRecords('userlogin', "WHERE user_Email = '$email'");
         if (count($data) > 0) {
             echo "<script>alert('Email already exists!');</script>";

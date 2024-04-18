@@ -1,3 +1,5 @@
+<?php if(!isset($_SESSION['cart'])) $_SESSION['cart'] = []; ?>
+
 <header class="header" id="header">
   <a href="?"><img src="img/UTS-Express.png" class="logo" /></a>
 
@@ -12,7 +14,7 @@
   <div class="icons" id="nav">
     <div class="fas fa-bars" id="menu-btn"></div>
     <div class="fas fa-search" id="search-btn"></div>
-    <div class="fas fa-shopping-cart" id="cart-btn"></div>
+    <div class="fas fa-shopping-cart static" id="cart-btn"><a id="cart-icon" class="cart-icon"><?= array_sum($_SESSION['cart']); ?></a></div>
     <?php
     if (isset($_SESSION['user_ID'])) {
       echo '<div class="fas fa-user" id="user-btn"></div>';

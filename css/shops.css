@@ -671,7 +671,17 @@ h1 {
     transform: scale(0.8);
 }
 
+.static {
+    padding-left: 1rem;
+}
 
+a.cart-icon {
+    font-size: 1.75rem;
+    position: relative;
+    border-radius: 50%;
+    top: -40%;
+    left: -20%;
+}
 
 
 

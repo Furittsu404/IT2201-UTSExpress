@@ -919,6 +919,19 @@ hr {
     padding: .5rem 0;
 }
 
+.static {
+}   
+
+a.cart-icon {
+    font-size: 1.75rem;
+    position: absolute;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    line-height: 3.2rem;
+    background-color: yellowgreen;
+    top: 5%;
+}
 
 
 
@@ -998,6 +1011,18 @@ hr {
 
     .product-grid {
         grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
+
+    .header .navbar #navtxt {
+        font-size: 2rem;
+        margin: 0;
+        padding: 2rem 2.5rem;
+        display: block;
+    }
+
+    .header .navbar #navtxt:hover {
+        background-color: darkgreen;
+        color: #FFF;
     }
 
 }
