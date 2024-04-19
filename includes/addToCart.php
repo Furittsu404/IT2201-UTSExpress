@@ -9,6 +9,9 @@ $cart = new cart($conn->connect());
 if (isset($_POST['id'])) {
     if (isset($_POST['delete'])) {
         $cart->deleteCart();
+        if (isset($_SESSION['user_ID'])) {
+            $cart->saveCart();
+        }
     } else {
         if (isset($_SESSION['user_ID'])) {
             $cart->addCart();

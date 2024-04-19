@@ -55,7 +55,7 @@ if (isset($_GET['sort'])) {
                         <img src="../img/<?= $shop_ID ?>/products/<?= $new[$i][4]; ?>" alt="">
                         <h3><?= $new[$i][1]; ?></h3>
                         <p>Price: P<?= $new[$i][2]; ?></p>
-                        <a href="#" class="btn">Add To Cart</a>
+                        <a id="cartbtn" class="btn cartbtn" data-id="<?= $new[$i][0]; ?>">Add to Cart</a>
                     </div>
                 <?php endfor; ?>
             <?php endif; ?>
@@ -89,11 +89,11 @@ if (isset($_GET['sort'])) {
                     <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" alt="">
                     <h3><?= $result[$i][1]; ?></h3>
                     <p>Price: P<?= $result[$i][2]; ?></p>
-                    <a href="#" class="btn">Add to Cart</a>
+                    <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
                 </div>
             <?php endfor; ?>
         <?php endif; ?>
-        <?php if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
+        <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
             <div class="product" name="add-product" onclick="showModal('add-product-form')">
                 <i class="bi bi-plus-square"></i>
                 <h3>Add Product</h3>
@@ -192,3 +192,30 @@ if (isset($_GET['sort'])) {
         </ul>
     </div>
 </section>
+
+
+<script>
+    $(document).ready(function () {
+        $('.cartbtn').on('click', function (e) {
+            e.preventDefault();
+            let productId = $(this).data('id');
+            $.ajax({
+                url: '../includes/addToCart.php',
+                type: 'POST',
+                data: { id: productId },
+                success: function (response) {
+                    $('#cart-icon').text(response);
+                }
+            });
+            $.ajax({
+                url: '../includes/cartUpdate.php',
+                type: 'POST',
+                data: { id: productId },
+                success: function (response) {
+                    $('#cart-content').html(response);
+                }
+            });
+            showModal('addCartModal');
+        });
+    });
+</script>

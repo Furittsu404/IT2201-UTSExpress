@@ -30,7 +30,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
 }
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
-  }
+}
 ?>
 
 
@@ -108,7 +108,7 @@ if (!isset($_SESSION['cart'])) {
                                 </a>
                                 <div class="end">
                                     <br>
-                                    <button type="button" class="add-cart cartbtn" data-id="<?=$result[$i][0]?>">Add
+                                    <button type="button" class="add-cart cartbtn" data-id="<?= $result[$i][0] ?>">Add
                                         to Cart</button>
                                 </div>
                             </div>
@@ -195,7 +195,17 @@ if (!isset($_SESSION['cart'])) {
             search.open('GET', `search.php?search=${searchQuery}<?= isset($_GET['sort']) ? '&sort=${sortType}' : '' ?><?= isset($_GET['page']) ? '&page=${page}' : '' ?>`, true);
             search.onreadystatechange = function () {
                 if (search.readyState === 4 && search.status === 200) {
-                    document.getElementById('search-results').innerHTML = search.responseText;
+                    const response = document.createElement('div');
+                    response.innerHTML = search.responseText;
+                    
+                    document.getElementById('search-results').innerHTML = response.innerHTML;
+
+                    const scripts = response.getElementsByTagName('script');
+                    for (let i = 0; i < scripts.length; i++) {
+                        const script = document.createElement('script');
+                        script.text = scripts[i].innerText;
+                        document.body.appendChild(script);
+                    }
                 }
             };
             search.send();

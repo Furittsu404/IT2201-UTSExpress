@@ -6,6 +6,14 @@ include '../db/cartAction.php';
 
 $_SESSION['site'] = 'Shops';
 $shopPage = true;
+if (!isset($_GET['shop_ID'])) {
+    if (isset($_SESSION['shop_ID'])) {
+        $_GET['shop_ID'] = $_SESSION['shop_ID'];
+    } else 
+    header("Location: ../");
+} else {
+    $_SESSION['shop_ID'] = $_GET['shop_ID'];
+}
 $shop_ID = $_GET['shop_ID'];
 
 $conn = new Connection();
@@ -43,7 +51,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
 }
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
-  }
+}
 ?>
 
 
@@ -109,7 +117,7 @@ if (!isset($_SESSION['cart'])) {
                     <?= $database->sort2 ? '<i class="bi bi-arrow-up up"></i>' : '<i class="bi bi-arrow-down down"></i>' ?></button>
                 <?php if (isset($_GET['sort']) && $_GET['sort'] != 'reset'): ?>
                     <button class="sort-button reset-sort" type="button" onclick="window.location.href='?shop_ID=<?= $_GET['shop_ID'] ?><?php if (isset($_GET['search']) && $_GET['search'] != null) {
-                          echo '&search=' . $_GET['search'] ;
+                          echo '&search=' . $_GET['search'];
                       } ?>'">Reset</button>
                 <?php endif; ?>
             </div>
@@ -126,56 +134,56 @@ if (!isset($_SESSION['cart'])) {
                     <?php endfor; ?>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
-                    <div class="product" name="add-product" onclick="showModal('add-product-form')">
-                        <i class="bi bi-plus-square"></i>
-                        <h3>Add Product</h3>
-                    </div>
-                    <div id="add-product-form" class="modal">
-                        <div class="modal-content">
-                            <div class="modal-top">
-                                <h1 style="font-size: 2.5rem;">ADD PRODUCT</h1>
-                                <div class="close" onclick="closeModal('add-product-form')">&times;</div>
-                            </div>
-                            <hr><br>
-                            <form method="post" enctype="multipart/form-data">
-                                <div class="form-row">
-                                    <label for="product_Name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="product_Name" name="product_Name"
-                                        placeholder="Name">
-                                </div>
-                                <div class="form-row">
-                                    <label for="product_Price" class="form-label">Price (₱)</label>
-                                    <input type="number" step="0.01" class="form-control" id="product_Price"
-                                        name="product_Price" placeholder="Name">
-                                </div>
-                                <div class="form-row">
-                                    <label for="product_Description" class="form-label">Description</label>
-                                    <textarea rows="3" class="form-control" id="product_Description"
-                                        name="product_Description" placeholder="Name"></textarea>
-                                </div>
-                                <div class="form-row">
-                                    <label for="product_Image" class="form-label">Product Image</label>
-                                    <input type="file" class="form-control" id="product_Image" name="product_Image"
-                                        placeholder="Name">
-                                </div>
-                                <div class="form-row hidden">
-                                    <label for="shop_ID" class="form-label">SHOP ID</label>
-                                    <input type="text" class="form-control" id="shop_ID" name="shop_ID"
-                                        value="<?= $_SESSION['user_ID'] ?>">
-                                </div>
-                                <div class="product-image" id="productImage-container">
-                                    <img src="" id="productImage" />
-                                </div>
-                                <div class="form-row-btn">
-                                    <button type="button" class="form-btn cancel"
-                                        onclick="closeModal('add-product-form');"><span class="btn-text">Cancel</span><i
-                                            class="bi bi-x-lg btn-icon"></i></button>
-                                    <button type="submit" name="create" class="form-btn create"><span class="btn-text">Add
-                                            Product</span><i class="bi bi-check-lg btn-icon"></i></button>
-                                </div>
-                            </form>
+                        <div class="product" name="add-product" onclick="showModal('add-product-form')">
+                            <i class="bi bi-plus-square"></i>
+                            <h3>Add Product</h3>
                         </div>
-                    </div>
+                        <div id="add-product-form" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-top">
+                                    <h1 style="font-size: 2.5rem;">ADD PRODUCT</h1>
+                                    <div class="close" onclick="closeModal('add-product-form')">&times;</div>
+                                </div>
+                                <hr><br>
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="form-row">
+                                        <label for="product_Name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="product_Name" name="product_Name"
+                                            placeholder="Name">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="product_Price" class="form-label">Price (₱)</label>
+                                        <input type="number" step="0.01" class="form-control" id="product_Price"
+                                            name="product_Price" placeholder="Name">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="product_Description" class="form-label">Description</label>
+                                        <textarea rows="3" class="form-control" id="product_Description"
+                                            name="product_Description" placeholder="Name"></textarea>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="product_Image" class="form-label">Product Image</label>
+                                        <input type="file" class="form-control" id="product_Image" name="product_Image"
+                                            placeholder="Name">
+                                    </div>
+                                    <div class="form-row hidden">
+                                        <label for="shop_ID" class="form-label">SHOP ID</label>
+                                        <input type="text" class="form-control" id="shop_ID" name="shop_ID"
+                                            value="<?= $_SESSION['user_ID'] ?>">
+                                    </div>
+                                    <div class="product-image" id="productImage-container">
+                                        <img src="" id="productImage" />
+                                    </div>
+                                    <div class="form-row-btn">
+                                        <button type="button" class="form-btn cancel"
+                                            onclick="closeModal('add-product-form');"><span class="btn-text">Cancel</span><i
+                                                class="bi bi-x-lg btn-icon"></i></button>
+                                        <button type="submit" name="create" class="form-btn create"><span class="btn-text">Add
+                                                Product</span><i class="bi bi-check-lg btn-icon"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                 <?php endif; ?>
             </div>
             <div>
@@ -252,16 +260,27 @@ if (!isset($_SESSION['cart'])) {
     <script src="../js/products.js"></script>
     <script>
         function handleSearchQuery() {
-            const searchQuery = document.getElementById('search-box').value;
+            const searchBoxValue = document.getElementById('search-box').value;
+        const searchQuery = searchBoxValue ? `&search=${searchBoxValue}` : ' ';
             const shopID = <?= $shop_ID ?>;
             const sortType = '<?= isset($_GET['sort']) ? $_GET['sort'] : 'reset' ?>';
             const page = <?= $page ? $page : NULL ?>;
 
             const search = new XMLHttpRequest();
-            search.open('GET', `search.php?search=${searchQuery}&shop_ID=${shopID}<?= isset($_GET['sort']) ? '&sort=${sortType}' : '' ?><?= isset($_GET['page']) ? '&page=${page}' : '' ?>`, true);
+            search.open('GET', `search.php?shop_ID=${shopID}&search=${searchQuery}<?= isset($_GET['sort']) ? '&sort=${sortType}' : '' ?><?= isset($_GET['page']) ? '&page=${page}' : '' ?>`, true);
             search.onreadystatechange = function () {
                 if (search.readyState === 4 && search.status === 200) {
-                    document.getElementById('search-results').innerHTML = search.responseText;
+                    const response = document.createElement('div');
+                    response.innerHTML = search.responseText;
+
+                    document.getElementById('search-results').innerHTML = response.innerHTML;
+
+                    const scripts = response.getElementsByTagName('script');
+                    for (let i = 0; i < scripts.length; i++) {
+                        const script = document.createElement('script');
+                        script.text = scripts[i].innerText;
+                        document.body.appendChild(script);
+                    }
                 }
             };
             search.send();

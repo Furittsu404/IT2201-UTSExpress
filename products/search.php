@@ -28,6 +28,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
 }
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <h1>Products</h1>
 <hr>
 <div class="container2">
@@ -44,7 +45,7 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                 </a>
                 <div class="end">
                     <br>
-                    <button type="button" onclick="AddToCart()" class="add-cart">Add
+                    <button type="button" class="add-cart cartbtn" id="cartbtn" data-id="<?= $result[$i][0] ?>">Add
                         to Cart</button>
                 </div>
             </div>
@@ -116,3 +117,32 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
         <?php endif; ?>
     </ul>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        console.log("Script loaded");
+        $(document).on('click', '.container2 .cartbtn', function (e) {
+            console.log("Script loaded");
+            e.preventDefault();
+            let productId = $(this).data('id');
+            $.ajax({
+                url: '../includes/addToCart.php',
+                type: 'POST',
+                data: { id: productId },
+                success: function (response) {
+                    $('#cart-icon').text(response);
+                }
+            });
+            $.ajax({
+                url: '../includes/cartUpdate.php',
+                type: 'POST',
+                data: { id: productId },
+                success: function (response) {
+                    $('#cart-content').html(response);
+                }
+            });
+            showModal('addCartModal');
+        });
+    });
+</script>
