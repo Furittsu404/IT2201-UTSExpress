@@ -98,7 +98,7 @@
                 <span>Drivers</span>
             </a>
             <ul id="driver2" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-            <li class="sidebar-item">
+                <li class="sidebar-item">
                     <a href="../drivers/profiles.php"
                         class="sidebar-link <?= ($_SESSION['site'] === 'driverProfiles') ? "active-tab" : "" ?>">&nbsp;&nbsp;Profiles</a>
                 </li>
@@ -126,6 +126,10 @@
         </li>
     </ul>
     <div class="sidebar-footer">
+        <a href="../profile" class="sidebar-link <?= ($_SESSION['site'] === 'adminAccount') ? "active-tab" : "" ?>">
+            <i class="lni lni-cogs"></i>
+            <span>Account Settings</span>
+        </a>
         <a href="../../" class="sidebar-link">
             <i class="lni lni-backward"></i>
             <span>Back to Main Website</span>

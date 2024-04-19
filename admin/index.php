@@ -2,6 +2,7 @@
 session_start();
 include '../db/action.php';
 include '../db/connection.php';
+$_SESSION['site'] = 'adminIndex';
 
 if (!isset($_SESSION['admin'])) {
     header("Location: ../");
@@ -87,13 +88,16 @@ $database = new Database($connection->connect());
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a href=""
-                        class="sidebar-link">
+                    <a href="" class="sidebar-link">
                         <i class="lni lni-envelope"></i>
                         <span>Notifications</span>
                     </a>
                 </li>
             </ul>
+            <a href="profile" class="sidebar-link <?= ($_SESSION['site'] === 'adminAccount') ? "active-tab" : "" ?>">
+                <i class="lni lni-cogs"></i>
+                <span>Account Settings</span>
+            </a>
             <div class="sidebar-footer">
                 <a href="../" class="sidebar-link">
                     <i class="lni lni-backward"></i>

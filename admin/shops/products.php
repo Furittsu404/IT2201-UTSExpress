@@ -95,7 +95,7 @@ if (isset($_GET['search'])) {
                                         <?php for ($j = 0; $j < count($result3); $j++): ?>
                                             <div class="product p-3 overflow-hidden">
                                                 <div class="product-image">
-                                                    <img src="../../img/<?= $result3[$i][5] ?>/products/<?= $result3[$j][0] ?>.png">
+                                                    <img src="../../img/<?= $result3[$j][5] ?>/products/<?= $result3[$j][0] ?>.png">
                                                 </div>
                                                 <h1><?= $result3[$j][1] ?></h1>
                                                 <div class="row gap-1 justify-content-center">

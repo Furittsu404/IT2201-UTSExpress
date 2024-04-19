@@ -22,7 +22,7 @@ $cart = new cart($conn->connect());
 
 if (isset($_POST['create'])) {
     $database->validateFile($_FILES, key($_FILES));
-    $key = $database->addProduct($_POST);
+    $database->addProduct($_POST);
     $name = $database->showRecords('shopproducts', "WHERE shop_ID LIKE '$shop_ID' ORDER BY product_ID DESC LIMIT 0,1");
     $database->moveFile($shop_ID, $name[0][0], $_FILES, '../img', 'products');
     header("Location: ".$_SERVER['PHP_SELF']);

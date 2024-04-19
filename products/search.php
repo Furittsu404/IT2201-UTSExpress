@@ -28,7 +28,6 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
 }
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <h1>Products</h1>
 <hr>
 <div class="container2">
@@ -118,12 +117,9 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
     </ul>
 </div>
 
-
 <script>
     $(document).ready(function () {
-        console.log("Script loaded");
-        $(document).on('click', '.container2 .cartbtn', function (e) {
-            console.log("Script loaded");
+        $('.cartbtn').on('click', function (e) {
             e.preventDefault();
             let productId = $(this).data('id');
             $.ajax({

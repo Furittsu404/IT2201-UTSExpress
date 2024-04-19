@@ -29,9 +29,9 @@
   </div>
 
   <div class="shopping-cart" id="cart">
-    <a class="btn" style="color: black">checkout</a>
+    <a class="btn" style="color: black">Checkout</a>
     <div id="cart-content">
-      <div class="total">total : <?= sizeof($_SESSION['cart']) ?></div>
+      <div class="total">Total : <?= sizeof($_SESSION['cart']) ?></div>
       <div class="total" style="padding: 0;font-size: 2rem;">Cost : P<?= $cart->getTotal() ?></div>
       <?php foreach ($_SESSION['cart'] as $id => $quantity): ?>
         <?php $itemData = $database->showRecords('shopproducts', "WHERE product_ID = '$id'"); ?>
