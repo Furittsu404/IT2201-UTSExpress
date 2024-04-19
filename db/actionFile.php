@@ -13,6 +13,18 @@ class File extends Database
         if (!$action1) 
             echo "<script>alert('Product not added! Something went wrong.');</script>";
     }
+    public function editProduct($data, $table, $where)
+    {
+        $product = [];
+        foreach ($data as $key => $value) {
+            if ($key != 'edit' && $key != 'product_ID') {
+                $product[$key] = $value;
+            }
+        }
+        $action = $this->updateRecord($product, $table, $where);
+        if (!$action) 
+            echo "<script>alert('Product not updated! Something went wrong.');</script>";
+    }
     public function validateFile($file, $key)
     {
         $check = getimagesize($file[$key]["tmp_name"]);

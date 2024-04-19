@@ -97,15 +97,28 @@ function validSymbol(id) {
 }
 
 $(document).ready(function () {
-  $("#product_Image").change(function () {
+  $(".createimg").change(function () {
     var file = this.files[0];
     if (file) {
       var reader = new FileReader();
       reader.onload = function (event) {
-        $("#productImage-container").css("display", "flex");
-        $("#productImage").attr("src", event.target.result);
-        $("#productImage").hide(0);
-        $("#productImage").fadeIn(1000);
+        $("#createImg-container").css("display", "flex");
+        $("#createImg").attr("src", event.target.result);
+        $("#createImg").fadeIn(1000);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+});
+$(document).ready(function () {
+  $(".editimg").change(function () {
+    var file = this.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        $(".editimg-container").css("display", "flex");
+        $(".editedimg").attr("src", event.target.result);
+        $(".editedimg").fadeIn(1000);
       };
       reader.readAsDataURL(file);
     }
