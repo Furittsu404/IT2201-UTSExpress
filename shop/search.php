@@ -89,7 +89,7 @@ if (isset($_GET['sort'])) {
                     <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" alt="" onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
                             echo "showModal('edit-product$i')"; ?>">
                     <h3 onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
-                            echo "showModal('edit-product$i')"; ?>"><?= $result[$i][1]; ?></h3>
+                        echo "showModal('edit-product$i')"; ?>"><?= $result[$i][1]; ?></h3>
                     <p>Price: P<?= $result[$i][2]; ?></p>
                     <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
                 </div>
@@ -199,17 +199,20 @@ if (isset($_GET['sort'])) {
                         </form>
                     </div>
                 </div>
-                <div id="editSuccess" class="modal">
-                    <div class="modal-content" style="width: 300px;">
-                        <div>
-                            <div class="close" onclick="closeModal('editSuccess')">&times;</div>
-                            <h1>Product Added!</h1>
+            <?php if ($postEdit): ?>
+                    <div id="editSuccess" class="modal-postEdit">
+                        <div class="modal-content" style="width: 300px;">
+                            <div>
+                                <div class="close" onclick="closeModal('editSuccess')">&times;</div>
+                                <h1>Product Added!</h1>
+                            </div>
+                            <hr><br>
+                            <h1 style="text-align:center;font-size: 8rem;color: green;"><i class="bi bi-check-circle"></i>
+                            </h1>
+                            <h1 style="font-weight: 400;text-align: center;">Product Edited Successfuly.</h1>
                         </div>
-                        <hr><br>
-                        <h1 style="text-align:center;font-size: 8rem;color: green;"><i class="bi bi-check-circle"></i></h1>
-                        <h1 style="font-weight: 400;text-align: center;">Product Edited Successfuly.</h1>
                     </div>
-                </div>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
     <div>

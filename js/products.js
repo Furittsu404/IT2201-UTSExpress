@@ -77,6 +77,9 @@ window.onclick = function (event) {
     document.querySelector(".active-modal").style.display = "none";
     document.querySelector(".active-modal").classList.remove("active-modal");
   }
+  if (event.target == document.querySelector(".modal-postEdit")) {
+    document.querySelector(".modal-postEdit").style.display = "none";
+  }
 };
 
 function numberOnly(id) {

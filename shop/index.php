@@ -25,7 +25,7 @@ if (isset($_POST['create'])) {
     $key = $database->addProduct($_POST);
     $name = $database->showRecords('shopproducts', "WHERE shop_ID LIKE '$shop_ID' ORDER BY product_ID DESC LIMIT 0,1");
     $database->moveFile($shop_ID, $name[0][0], $_FILES, '../img', 'products');
-    $_POST = [];
+    header("Location: ".$_SERVER['PHP_SELF']);
 }
 if (isset($_POST['edit'])) {
     if ($_FILES['product_Image']['name'] != NULL) {
@@ -33,7 +33,7 @@ if (isset($_POST['edit'])) {
         $database->moveFile($shop_ID, $_POST['product_ID'], $_FILES, '../img', 'products');
     }
     $database->editProduct($_POST, 'shopproducts', ['product_ID' => $_POST['product_ID']]);
-    $_POST = [];
+    header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -135,9 +135,9 @@ if (!isset($_SESSION['cart'])) {
                         <?php $product_ID[$i] = $result[$i][0]; ?>
                         <div class="product">
                             <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
-                            echo "showModal('edit-product$i')"; ?>" alt="">
+                                    echo "showModal('edit-product$i')"; ?>" alt="">
                             <h3 onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
-                            echo "showModal('edit-product$i')"; ?>"><?= $result[$i][1]; ?></h3>
+                                echo "showModal('edit-product$i')"; ?>"><?= $result[$i][1]; ?></h3>
                             <p>Price: P<?= $result[$i][2]; ?></p>
                             <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
                         </div>
@@ -187,8 +187,7 @@ if (!isset($_SESSION['cart'])) {
                                                 <button type="button" class="form-btn cancel"
                                                     onclick="closeModal('edit-product<?= $i ?>');"><span
                                                         class="btn-text">Cancel</span><i class="bi bi-x-lg btn-icon"></i></button>
-                                                <button type="submit" onclick="showModal('editSuccess')" name="edit"
-                                                    class="form-btn create"><span class="btn-text">Edit
+                                                <button type="submit" name="edit" class="form-btn create"><span class="btn-text">Edit
                                                         Product</span><i class="bi bi-check-lg btn-icon"></i></button>
                                             </div>
                                         </form>
@@ -198,7 +197,7 @@ if (!isset($_SESSION['cart'])) {
                     <?php endfor; ?>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
-                        <div class="product" name="add-product" onclick="showModal('add-product-form')">
+                        <div class="product addproduct" name="add-product" onclick="showModal('add-product-form')">
                             <i class="bi bi-plus-square"></i>
                             <h3>Add Product</h3>
                         </div>
@@ -248,18 +247,20 @@ if (!isset($_SESSION['cart'])) {
                                 </form>
                             </div>
                         </div>
-                        <div id="editSuccess" class="modal">
-                            <div class="modal-content" style="width: 300px;">
-                                <div>
-                                    <div class="close" onclick="closeModal('editSuccess')">&times;</div>
-                                    <h1>Product Added!</h1>
+                    <?php if (isset($postEdit)): ?>
+                            <div id="editSuccess" class="modal-postEdit">
+                                <div class="modal-content" style="width: 300px;">
+                                    <div>
+                                        <div class="close" onclick="closeModal('editSuccess')">&times;</div>
+                                        <h1>Product Edited!</h1>
+                                    </div>
+                                    <hr><br>
+                                    <h1 style="text-align:center;font-size: 8rem;color: green;"><i class="bi bi-check-circle"></i>
+                                    </h1>
+                                    <h1 style="font-weight: 400;text-align: center;">Product Edited Successfuly.</h1>
                                 </div>
-                                <hr><br>
-                                <h1 style="text-align:center;font-size: 8rem;color: green;"><i class="bi bi-check-circle"></i>
-                                </h1>
-                                <h1 style="font-weight: 400;text-align: center;">Product Edited Successfuly.</h1>
                             </div>
-                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
             <div>
