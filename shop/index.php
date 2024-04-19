@@ -133,10 +133,11 @@ if (!isset($_SESSION['cart'])) {
                 <?php if (count($result) > 0): ?>
                     <?php for ($i = 0; $i < count($result); $i++): ?>
                         <?php $product_ID[$i] = $result[$i][0]; ?>
-                        <div class="product" onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
-                            echo "showModal('edit-product$i')"; ?>">
-                            <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" alt="">
-                            <h3><?= $result[$i][1]; ?></h3>
+                        <div class="product">
+                            <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
+                            echo "showModal('edit-product$i')"; ?>" alt="">
+                            <h3 onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
+                            echo "showModal('edit-product$i')"; ?>"><?= $result[$i][1]; ?></h3>
                             <p>Price: P<?= $result[$i][2]; ?></p>
                             <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
                         </div>
@@ -184,9 +185,10 @@ if (!isset($_SESSION['cart'])) {
                                             </div>
                                             <div class="form-row-btn">
                                                 <button type="button" class="form-btn cancel"
-                                                    onclick="closeModal('edit-product<?= $i ?>');"><span class="btn-text">Cancel</span><i
-                                                        class="bi bi-x-lg btn-icon"></i></button>
-                                                <button type="submit" name="edit" class="form-btn create"><span class="btn-text">Edit
+                                                    onclick="closeModal('edit-product<?= $i ?>');"><span
+                                                        class="btn-text">Cancel</span><i class="bi bi-x-lg btn-icon"></i></button>
+                                                <button type="submit" onclick="showModal('editSuccess')" name="edit"
+                                                    class="form-btn create"><span class="btn-text">Edit
                                                         Product</span><i class="bi bi-check-lg btn-icon"></i></button>
                                             </div>
                                         </form>
@@ -244,6 +246,18 @@ if (!isset($_SESSION['cart'])) {
                                                 Product</span><i class="bi bi-check-lg btn-icon"></i></button>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        <div id="editSuccess" class="modal">
+                            <div class="modal-content" style="width: 300px;">
+                                <div>
+                                    <div class="close" onclick="closeModal('editSuccess')">&times;</div>
+                                    <h1>Product Added!</h1>
+                                </div>
+                                <hr><br>
+                                <h1 style="text-align:center;font-size: 8rem;color: green;"><i class="bi bi-check-circle"></i>
+                                </h1>
+                                <h1 style="font-weight: 400;text-align: center;">Product Edited Successfuly.</h1>
                             </div>
                         </div>
                 <?php endif; ?>

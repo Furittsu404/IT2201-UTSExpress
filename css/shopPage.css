@@ -755,7 +755,6 @@ hr {
     outline-offset: -1rem;
     text-align: center;
     box-shadow: var(--box-shadow);
-    cursor: pointer;
 }
 .product:hover {
     transform: scale(1.05);
@@ -765,12 +764,14 @@ hr {
 .product img {
     margin: 1rem 0;
     height: 15rem;
+    cursor: pointer;
 }
 
 .product-grid .product h3 {
     font-size: 2.5rem;
     line-height: 1.8;
     color: var(--black);
+    cursor: pointer;
 }
 
 .product-grid .product i {
