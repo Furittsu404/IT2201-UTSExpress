@@ -12,28 +12,6 @@ $id = $_SESSION['user_ID'];
 $connection = new Connection();
 $database = new adminAction($connection->connect());
 
-if (isset($_POST['edit'])) {
-    $admin = [];
-    foreach ($_POST as $name => $val) {
-        if ($name == 'admin_Password' && $val != NULL)
-            $admin[$name] = password_hash($val, PASSWORD_BCRYPT);
-        else if ($name != 'edit' && $name != 'admin_Password')
-            $admin[$name] = $val;
-    }
-    $show = $database->showRecords('adminlogin', "WHERE admin_ID = $id");
-    if ($show && $show[0][0] != $id) {
-        echo "<script>alert('Email already exists!')</script>";
-    } else {
-        try {
-            $action = $database->updateRecord($admin, 'adminlogin', ['admin_ID' => $id]);
-            echo "<script>alert('Admin Updated Successfully.')</script>";
-            echo '<script>window.location.href="../";</script>';
-        } catch (Exception $e) {
-            echo "Error: $e";
-        }
-    }
-}
-
 $data = $database->showRecords('adminlogin', "WHERE admin_ID = $id");
 ?>
 
@@ -60,14 +38,14 @@ $data = $database->showRecords('adminlogin', "WHERE admin_ID = $id");
                 </div>
                 <hr>
                 <br>
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" action="edit.php">
                     <div class="row">
                         <div class="col-sm-2">
                             <label for="admin_Name" class="col-form-label">Name</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" oninput="validSymbol(this.id);" class="form-control" id="admin_Name"
-                                name="admin_Name" value="<?=$data[0][1]?>" required>
+                            <input type="text" oninput="letterOnly(this.id);" class="form-control" id="admin_Name"
+                                name="admin_Name" value="<?= $data[0][1] ?>" required>
                         </div>
                     </div>
                     <br>
@@ -76,8 +54,8 @@ $data = $database->showRecords('adminlogin', "WHERE admin_ID = $id");
                             <label for="admin_Email" class="col-form-label">Email</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="email" oninput="validSymbol(this.id);" class="form-control" id="admin_Email"
-                                name="admin_Email" value="<?=$data[0][2]?>" required>
+                            <input type="email" oninput="letterOnly(this.id);" class="form-control" id="admin_Email"
+                                name="admin_Email" value="<?= $data[0][2] ?>" required>
                         </div>
                     </div>
                     <br>
@@ -92,8 +70,23 @@ $data = $database->showRecords('adminlogin', "WHERE admin_ID = $id");
                     </div>
                     <br>
                     <div class="row">
+                        <div class="col-sm-2">
+                            <label for="admin_ConfirmPassword" class="col-form-label">Confirm Password</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="password" oninput="validSymbol(this.id);" class="form-control" minlength="8"
+                                id="admin_ConfirmPassword" name="admin_ConfirmPassword" placeholder="Password">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row-end">
+                        <input type="checkbox" class="form-check-input" onclick="showPassword('admin_Password','admin_ConfirmPassword')"><a>Show Password</a>
+                    </div>
+                    <br>
+                    <div class="row">
                         <div class="col-sm-12 d-flex justify-content-end gap-3">
-                            <button type="button" class="btn btn-secondary w-25" onclick="window.location.href='../'">Back</button>
+                            <button type="button" class="btn btn-secondary w-25"
+                                onclick="window.location.href='../'">Back</button>
                             <button type="submit" name="edit" class="btn btn-success w-25">Save Changes</button>
                         </div>
                     </div>

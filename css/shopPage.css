@@ -734,6 +734,7 @@ hr {
 .features .box-container .box img {
     margin: 1rem 0;
     height: 15rem;
+    object-fit: cover;
 }
 
 .features .box-container .box h3 {
@@ -783,6 +784,7 @@ hr {
     margin: 1rem 0;
     height: 15rem;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .product-grid .product h3 {

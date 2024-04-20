@@ -327,6 +327,7 @@ a.cart-icon {
     color: black;
     top: 5%;
 }
+
 /*=================================================*/
 /*                  FOOTER              */
 .footer {
@@ -399,7 +400,7 @@ a.cart-icon {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding:3rem;
+    padding: 3rem;
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -423,6 +424,7 @@ a.cart-icon {
     justify-content: space-between;
     padding: 3rem;
 }
+
 .form form {
     width: 100%;
 }
@@ -439,33 +441,56 @@ a.cart-icon {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
-  
-  .form-control:focus {
+}
+
+.form-control:focus {
     color: #495057;
     background-color: #fff;
     border-color: #44ff3d;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
-  
-  .form-label {
+}
+
+.form-label {
     display: inline-block;
     margin-bottom: 0.5rem;
     font-size: 2rem;
-  }
+}
 
-  .form-row {
+.form-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    grid-template-columns: 20% 80%;
     width: 100%;
     padding: 1rem;
-  }
+}
 
-  .form-row-btn {
+.form-row-end {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+.form-row-end a {
+    font-size: 1.5rem;
+}
+
+.form-check-input {
+    margin-right: 0.25rem;
+    margin-left: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.form-check-input:checked {
+    background-color: green;
+}
+
+.form-row-btn {
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -473,9 +498,9 @@ a.cart-icon {
     width: 100%;
     padding: 1rem;
     gap: 1rem;
-  }
+}
 
-  .product-image {
+.product-image {
     display: none;
     width: 90%;
     justify-content: center;
@@ -483,38 +508,38 @@ a.cart-icon {
     object-fit: scale-down;
     overflow: hidden;
     align-self: center;
-  }
+}
 
-  .form-btn {
+.form-btn {
     padding: 1rem;
     background: none;
     border-radius: 8px;
     font-size: 1.5rem;
     width: 13rem;
     cursor: pointer;
-  }
+}
 
-  .form-btn .btn-icon {
+.form-btn .btn-icon {
     display: none;
-  }
+}
 
-  .cancel {
+.cancel {
     background-color: #AAA;
-  }
+}
 
-  .create {
+.create {
     background-color: green;
     color: white;
-  }
+}
 
-  .cancel:hover {
+.cancel:hover {
     background-color: #888;
-  }
+}
 
-  .create:hover {
+.create:hover {
     background-color: darkgreen;
-  }
-  
+}
+
 /*=================================================================*/
 /*                      MAIN PAGE CONTAINERS                   */
 .main {
@@ -526,6 +551,7 @@ a.cart-icon {
     padding: 2rem;
     margin-bottom: 10rem;
 }
+
 /*=============================================================*/
 
 .btn {
@@ -553,7 +579,7 @@ a.cart-icon {
 
 
 
-@media (max-width:1000px) {
+@media (max-width:1200px) {
 
     html {
         font-size: 55%;
@@ -566,6 +592,7 @@ a.cart-icon {
     section {
         padding: 2rem;
     }
+
     .form-row {
         flex-direction: column;
     }

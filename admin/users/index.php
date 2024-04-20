@@ -12,6 +12,12 @@ $connection = new Connection();
 $database = new adminAction($connection->connect());
 
 if (isset($_POST['create'])) {
+    $verifyEmail = $database->verifyEmail($_POST['user_Email']);
+    if ($verifyEmail) {
+        echo "<script>alert('Email already exists!')</script>";
+        echo "<script>window.location.href='index.php';</script>";
+        exit();
+    }
     $password = $_POST['user_Password'];
     $_POST['user_Password'] = password_hash($password, PASSWORD_BCRYPT);
     $database->create($_POST['user_Email'], $_POST);

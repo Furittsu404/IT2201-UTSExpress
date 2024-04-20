@@ -12,6 +12,12 @@ $connection = new Connection();
 $database = new adminAction($connection->connect());
 
 if (isset($_POST['create'])) {
+    $verifyEmail = $database->verifyEmail($_POST['driver_Email']);
+    if ($verifyEmail) {
+        echo "<script>alert('Email already exists!')</script>";
+        echo "<script>window.location.href='profiles.php';</script>";
+        exit();
+    }
     $password = $_POST['driver_Password'];
     $_POST['driver_Password'] = password_hash($password, PASSWORD_BCRYPT);
     $database->createDriver($_POST['driver_Email'], $_POST);
@@ -178,7 +184,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="driver_Email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" oninput="validSymbol(this.id);" class="form-control" id="driver_Email" name="driver_Email"
+                                <input type="email" oninput="letterOnly(this.id);" class="form-control" id="driver_Email" name="driver_Email"
                                     placeholder="Email" required>
                             </div>
                         </div>

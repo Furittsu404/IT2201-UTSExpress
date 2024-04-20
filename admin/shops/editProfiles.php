@@ -21,6 +21,12 @@ if (isset($_GET['shop_ID'])) {
 }
 
 if (isset($_POST['edit'])) {
+    $verifyEmail = $database->verifyEmail($_POST['shop_Email'], $shop_id);
+    if ($verifyEmail) {
+        echo "<script>alert('Email already exists!')</script>";
+        echo "<script>window.location.href='editProfiles.php?shop_ID=$shop_id';</script>";
+        exit();
+    }
     if (!$_FILES['shop_Image']['error'])
         $database->validateFile($_FILES, key($_FILES));
     $shoplogin = [];
@@ -74,7 +80,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="shop_Name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" oninput="validSymbol(this.id);" class="form-control" id="shop_Name" name="shop_Name" placeholder="Name"
+                        <input type="text" oninput="letterOnly(this.id);" class="form-control" id="shop_Name" name="shop_Name" placeholder="Name"
                             value="<?php echo isset($result[0][1]) ? $result[0][1] : '' ?>" required>
                     </div>
                 </div>
@@ -82,7 +88,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="shop_Email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" oninput="validSymbol(this.id);" class="form-control" id="shop_Email" name="shop_Email" placeholder="Email"
+                        <input type="email" oninput="letterOnly(this.id);" class="form-control" id="shop_Email" name="shop_Email" placeholder="Email"
                             value="<?php echo isset($result2[0][1]) ? $result2[0][1] : '' ?>" required>
                     </div>
                 </div>

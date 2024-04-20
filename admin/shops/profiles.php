@@ -12,6 +12,11 @@ $connection = new Connection();
 $database = new adminAction($connection->connect());
 
 if (isset($_POST['create'])) {
+    $verifyEmail = $database->verifyEmail($_POST['shop_Email']);
+    if ($verifyEmail) {
+        echo "<script>alert('Email already exists!')</script>";
+        echo "<script>window.location.href='profiles.php';</script>";
+    }
     $database->validateFile($_FILES, key($_FILES));
     $password = $_POST['shop_Password'];
     $_POST['shop_Password'] = password_hash($password, PASSWORD_BCRYPT);
@@ -169,7 +174,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="shop_Name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" oninput="validSymbol(this.id);" class="form-control" id="shop_Name" name="shop_Name"
+                                <input type="text" oninput="letterOnly(this.id);" class="form-control" id="shop_Name" name="shop_Name"
                                     placeholder="Name" required>
                             </div>
                         </div>
@@ -177,7 +182,7 @@ if (isset($_GET['search'])) {
                         <div class="form-group row">
                             <label for="shop_Email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" oninput="validSymbol(this.id);" class="form-control" id="shop_Email" name="shop_Email"
+                                <input type="email" oninput="letterOnly(this.id);" class="form-control" id="shop_Email" name="shop_Email"
                                     placeholder="Email" required>
                             </div>
                         </div>

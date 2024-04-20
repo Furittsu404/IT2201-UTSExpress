@@ -21,6 +21,12 @@ if (isset($_GET['driver_ID'])) {
 }
 
 if (isset($_POST['edit'])) {
+    $verifyEmail = $database->verifyEmail($_POST['driver_Email'], $driver_id);
+    if ($verifyEmail) {
+        echo "<script>alert('Email already exists!')</script>";
+        echo "<script>window.location.href='editProfiles.php?driver_ID=$driver_id';</script>";
+        exit();
+    }
     $driverlogin = [];
     $driverdata = [];
     foreach ($_POST as $name => $val) {
@@ -89,7 +95,7 @@ if (isset($_POST['edit'])) {
                 <div class="form-group row">
                     <label for="driver_Email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" oninput="validSymbol(this.id);" class="form-control" id="driver_Email" name="driver_Email" placeholder="Email"
+                        <input type="email" oninput="letterOnly(this.id);" class="form-control" id="driver_Email" name="driver_Email" placeholder="Email"
                             value="<?php echo isset($result2[0][1]) ? $result2[0][1] : '' ?>" required>
                     </div>
                 </div>

@@ -21,6 +21,12 @@ if (isset($_GET['user_ID'])) {
 }
 
 if (isset($_POST['edit'])) {
+    $verifyEmail = $database->verifyEmail($_POST['user_Email'], $user_id);
+    if ($verifyEmail) {
+        echo "<script>alert('Email already exists!')</script>";
+        echo "<script>window.location.href='edit.php?user_ID=$user_id';</script>";
+        exit();
+    }
     $userlogin = [];
     $userdata = [];
     foreach ($_POST as $name => $val) {

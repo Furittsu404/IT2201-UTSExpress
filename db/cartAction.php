@@ -24,7 +24,28 @@ class cart
             return [];
         }
         $cart = json_decode($cart[0][2], true);
+        foreach ($cart as $id => $quantity) {
+            $itemData = $this->conn->query("SELECT * FROM shopproducts WHERE product_ID = '$id'");
+            if ($itemData->num_rows == 0) {
+                unset($cart[$id]);
+                continue;
+            }
+        }
         return $cart;
+    }
+    public function validateCart() {
+        $cart = $_SESSION['cart'];
+        $newCart = [];
+        foreach ($cart as $id => $quantity) {
+            $itemData = $this->conn->query("SELECT * FROM shopproducts WHERE product_ID = '$id'");
+            if ($itemData->num_rows > 0) {
+                $newCart[$id] = $quantity;
+            }
+        }
+        $_SESSION['cart'] = $newCart;
+        if (isset($_SESSION['user_ID'])) {
+            $this->saveCart();
+        }
     }
     public function addCart()
     {

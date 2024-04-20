@@ -152,17 +152,17 @@ if (!isset($_SESSION['cart'])) {
                                         <form method="post" enctype="multipart/form-data">
                                             <div class="form-row">
                                                 <label for="product_Name" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="product_Name" name="product_Name"
+                                                <input type="text" class="form-control" oninput="letterOnly(this.id);" id="product_Name" name="product_Name"
                                                     value="<?= $result[$i][1] ?>">
                                             </div>
                                             <div class="form-row">
                                                 <label for="product_Price" class="form-label">Price (₱)</label>
-                                                <input type="number" step="0.01" class="form-control" id="product_Price"
+                                                <input type="number" step="0.01" oninput="numberOnly(this.id);" class="form-control" id="product_Price"
                                                     name="product_Price" value="<?= $result[$i][2] ?>">
                                             </div>
                                             <div class="form-row">
                                                 <label for="product_Description" class="form-label">Description</label>
-                                                <textarea rows="3" class="form-control" id="product_Description"
+                                                <textarea rows="3" class="form-control" oninput="letterOnly(this.id);" id="product_Description"
                                                     name="product_Description"><?= $result[$i][3] ?></textarea>
                                             </div>
                                             <div class="form-row">

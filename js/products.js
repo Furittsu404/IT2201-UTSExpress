@@ -45,6 +45,19 @@ $(document).ready(function () {
   });
 });
 
+function showPassword(pass, confirm) {
+  const passwordField = document.getElementById(pass);
+  const confirmPasswordField = document.getElementById(confirm);
+
+  if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      confirmPasswordField.type = 'text';
+  } else {
+      passwordField.type = 'password';
+      confirmPasswordField.type = 'password';
+  }
+}
+
 function showModal(var_id) {
   var modal = document.getElementById(var_id);
   modal.classList.add("active-modal");
@@ -89,7 +102,7 @@ function numberOnly(id) {
 
 function letterOnly(id) {
   var element = document.getElementById(id);
-  element.value = element.value.replace(/[^a-zA-Z-_,.`~ ]/g, "");
+  element.value = element.value.replace(/[^a-zA-Z0-9@-_,.`~ ]/g, "");
 }
 function validSymbol(id) {
   var element = document.getElementById(id);

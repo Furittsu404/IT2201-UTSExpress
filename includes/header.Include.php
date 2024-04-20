@@ -63,7 +63,7 @@
   <?php endif; ?>
   <?php if (isset($_SESSION['shop'])): ?>
     <a href="../shop/?shop_ID=<?= $_SESSION['user_ID'] ?>">Shop Profile</a>
-    <a href="../shop/profile">Profile</a>
+    <a href="../shop/profile.php">Profile</a>
   <?php endif; ?>
   <?php if (isset($_SESSION['driver'])): ?>
     <a href="../profile">Profile</a>

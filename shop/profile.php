@@ -13,8 +13,8 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-$data = $database->showRecords('userdata', "WHERE user_ID = $id");
-$data2 = $database->showRecords('userlogin', "WHERE user_ID = $id");
+$data = $database->showRecords('shopdata', "WHERE shop_ID = $id");
+$data2 = $database->showRecords('shoplogin', "WHERE shop_ID = $id");
 ?>
 
 <!DOCTYPE html>
@@ -39,40 +39,35 @@ $data2 = $database->showRecords('userlogin', "WHERE user_ID = $id");
             <div class="form">
                 <form method="post" action="edit.php">
                     <div class="form-row">
-                        <label for="user_Name" class="form-label">Name</label>
-                        <input class="form-control" type="text" name="user_Name" id="user_Name"
-                            value="<?= $data[0][2] ?>" placeholder="Name">
+                        <label for="shop_Name" class="form-label">Name</label>
+                        <input class="form-control" oninput="letterOnly(this.id);" type="text" name="shop_Name" id="shop_Name"
+                            value="<?= $data[0][1] ?>" placeholder="Name">
                     </div>
                     <div class="form-row">
-                        <label for="user_Nickname" class="form-label">Nickname</label>
-                        <input class="form-control" type="text" name="user_Nickname" id="user_Nickname"
-                            value="<?= $data[0][1] ?>" placeholder="Nickname">
-                    </div>
-                    <div class="form-row">
-                        <label for="user_Email" class="form-label">Email</label>
-                        <input class="form-control" type="email" name="user_Email" id="user_Email"
+                        <label for="shop_Email" class="form-label">Email</label>
+                        <input class="form-control" oninput="letterOnly(this.id);" type="email" name="shop_Email" id="shop_Email"
                             value="<?= $data2[0][1] ?>" placeholder="Email">
                     </div>
                     <div class="form-row">
-                        <label for="user_Password" class="form-label">Password</label>
-                        <input class="form-control" type="password" name="user_Password" id="user_Password" placeholder="Password">
+                        <label for="shop_Password" class="form-label">Password</label>
+                        <input class="form-control" oninput="validSymbol(this.id);" type="password" name="shop_Password" id="shop_Password" placeholder="Password">
                     </div>
                     <div class="form-row">
-                        <label for="user_ConfirmPassword" class="form-label">Confirm Password</label>
-                        <input class="form-control" type="password" name="user_ConfirmPassword" id="user_ConfirmPassword" placeholder="Confirm Password">
+                        <label for="shop_ConfirmPassword" class="form-label">Confirm Password</label>
+                        <input class="form-control" oninput="validSymbol(this.id);" type="password" name="shop_ConfirmPassword" id="shop_ConfirmPassword" placeholder="Confirm Password">
                     </div>
                     <div class="form-row-end">
-                        <input type="checkbox" class="form-check-input" onclick="showPassword('user_Password','user_ConfirmPassword')"><a>Show Password</a>
+                        <input type="checkbox" class="form-check-input" onclick="showPassword('shop_Password','shop_ConfirmPassword')"><a>Show Password</a>
                     </div>
                     <div class="form-row">
-                        <label for="user_Phone" class="form-label">Phone</label>
-                        <input class="form-control" type="text" name="user_Phone" id="user_Phone"
-                            value="<?= $data[0][3] ?>" placeholder="Phone number">
+                        <label for="shop_Phone" class="form-label">Phone</label>
+                        <input class="form-control" oninput="numberOnly(this.id);" type="text" name="shop_Phone" id="shop_Phone"
+                            value="<?= $data[0][2] ?>" placeholder="Phone number">
                     </div>
                     <div class="form-row">
-                        <label for="user_Location" class="form-label">Location</label>
-                        <input class="form-control" type="text" name="user_Location" id="user_Location"
-                            value="<?= $data[0][4] ?>" placeholder="Location">
+                        <label for="shop_Location" class="form-label">Location</label>
+                        <input class="form-control" oninput="validSymbol(this.id);" type="text" name="shop_Location" id="shop_Location"
+                            value="<?= $data[0][3] ?>" placeholder="Location">
                     </div>
 
                     <div class="form-row-btn">
