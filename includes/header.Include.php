@@ -11,7 +11,6 @@
       id="navtxt">Shops</a>
     <a href="../about" class="<?= ($_SESSION['site'] === 'About') ? "active-tab navtxt3" : "navtxt3" ?>"
       id="navtxt">About Us</a>
-    <a href="../faq" class="<?= ($_SESSION['site'] === 'Faq') ? "active-tab navtxt4" : "navtxt4" ?>" id="navtxt">FAQ</a>
   </nav>
 
   <div class="icons" id="nav">
