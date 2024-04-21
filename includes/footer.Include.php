@@ -7,7 +7,7 @@
             <div> <a href="#">Privacy Policy</a> </div>
             <div> <a href="#">Terms of Service</a> </div>
             <div>
-                <p>&copy; 2024 NATOExpress</p>
+                <p>&copy; 2024 UTSExpress</p>
             </div>
         </div>
         <div class="social-login">

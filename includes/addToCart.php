@@ -21,6 +21,17 @@ if (isset($_POST['id'])) {
             $cart->addCart();
         }
     }
-
+}
+if (isset($_POST['action'])) {
+    if ($_POST['action'] == 'validate') {
+        if (sizeof($_SESSION['cart']) == 10) {
+            if (isset($_SESSION['cart'][$_POST['id2']]))
+                echo 'success';
+            else 
+                echo 'max';
+        } else {
+            echo 'success';
+        }
+    }
 }
 ?>

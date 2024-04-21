@@ -87,3 +87,15 @@
     <h1 style="font-weight: 400;text-align: center;">Product Added to Cart Successfuly.</h1>
   </div>
 </div>
+
+<div id="maxCartModal" class="modal">
+  <div class="modal-content" style="width: 300px;">
+  <div>
+    <div class="close" onclick="closeModal('addCartModal')">&times;</div>
+    <h1>Cart Limit Reached!</h1>
+  </div>
+    <hr><br>
+    <h1 style="text-align:center;font-size: 8rem;color: red;"><i class="bi bi-exclamation-circle"></i></h1>
+    <h1 style="font-weight: 400;text-align: center;">You can only add a max of 10 items in your cart.</h1>
+  </div>
+</div>

@@ -56,7 +56,11 @@ class cart
         if (isset($_SESSION['cart'][$productId])) {
             $_SESSION['cart'][$productId]++;
         } else {
-            $_SESSION['cart'][$productId] = 1;
+            if (sizeof($_SESSION['cart']) == 10) {
+                echo sizeof($_SESSION['cart']);
+                return;
+            } else 
+                $_SESSION['cart'][$productId] = 1;
         }
         echo sizeof($_SESSION['cart']);
     }

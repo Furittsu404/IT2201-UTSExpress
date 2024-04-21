@@ -34,6 +34,18 @@ $(document).ready(function () {
           }
       });
       $.ajax({
+        url: '../includes/addToCart.php',
+        type: 'POST',
+        data: { action: 'validate', id2: productId },
+        success: function (response) {
+            if (response === 'success') {
+              showModal('addCartModal');
+            } else if (response === 'max'){
+              showModal('maxCartModal'); 
+            }
+        }
+    });
+      $.ajax({
           url: '../includes/cartUpdate.php',
           type: 'POST',
           data: { id: productId },
@@ -41,7 +53,6 @@ $(document).ready(function () {
               $('#cart-content').html(response);
           }
       });
-      showModal('addCartModal');
   });
 });
 
