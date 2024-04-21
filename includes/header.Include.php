@@ -1,5 +1,5 @@
 <?php include_once '../db/action.php'; ?>
-
+<?php $cart->validateCart(); ?>
 <header class="header" id="header">
   <a href="../"><img src="../img/UTS-Express.png" class="logo" /></a>
 
@@ -29,7 +29,7 @@
   </div>
 
   <div class="shopping-cart" id="cart">
-    <a class="btn" style="color: black">Checkout</a>
+    <a href="../checkout" class="btn" style="color: black">Checkout</a>
     <div id="cart-content">
       <div class="total">Total : <?= sizeof($_SESSION['cart']) ?></div>
       <div class="total" style="padding: 0;font-size: 2rem;">Cost : P<?= $cart->getTotal() ?></div>

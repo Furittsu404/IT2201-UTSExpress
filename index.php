@@ -86,14 +86,12 @@ $bg = rand(1, 4);
   <section class="join-now" id="join-now">
     <div class="container">
       <div class="container-col">
-        <h1 class="heading">Become a UTS-Express Driver</h1>
+        <h1 class="heading">For All UTS Drivers</h1>
         <p class="content">
           Accelerate your career as a UTS-Express Driver! Join our program and play a crucial role in transporting
-          goods and personnel across UTS bases. Enjoy the thrill of logistics while ensuring timely deliveries and
-          upholding security standards. Begin your journey today!
+          goods and personnel across the campus. All UTS drivers can partake in this opportunity.
         </p>
         <br />
-        <a href="#" class="btn-join-now">Join Now</a>
       </div>
       <img src="img/nato-driver.jpg" />
     </div>

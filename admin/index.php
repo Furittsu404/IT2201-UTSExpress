@@ -65,29 +65,6 @@ $database = new Database($connection->connect());
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link has-dropdown" data-bs-toggle="collapse" data-bs-target="#driver"
-                        aria-expanded="true" aria-controls="driver">
-                        <i class="lni lni-delivery"></i>
-                        <span>Drivers</span>
-                    </a>
-                    <ul id="driver" class="sidebar-dropdown list-unstyled collapse show sidebar-sub">
-                        <li class="sidebar-item">
-                            <a href="drivers/profiles.php" class="sidebar-link">&nbsp;&nbsp;Profiles</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="drivers/currentDelivery.php" class="sidebar-link">&nbsp;&nbsp;Current
-                                Delivery</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="drivers/deliveryHistory.php" class="sidebar-link">&nbsp;&nbsp;Delivery
-                                History</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="drivers/reports.php" class="sidebar-link">&nbsp;&nbsp;Reports</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
                     <a href="" class="sidebar-link">
                         <i class="lni lni-envelope"></i>
                         <span>Notifications</span>
