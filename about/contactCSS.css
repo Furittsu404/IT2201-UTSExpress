@@ -89,7 +89,7 @@ body{
     padding-top: 0.4rem;
 }
 .contact-form{
-    padding: 3rem 0;
+    padding: rem 0;
     border-top: 1px solid #c7c7c7;
 }
 .contact-form form{
@@ -168,6 +168,7 @@ body{
     border-color: #f7327a;
 }
 
+
 @media screen and (min-width: 768px){
     .contact-bg .text{
         width: 70%;
@@ -188,6 +189,12 @@ body{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         align-items: center;
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .contact-info{
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
