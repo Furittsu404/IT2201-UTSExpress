@@ -150,7 +150,6 @@ let navbartxt = document.querySelector(".navtxt");
 let navbartxt1 = document.querySelector(".navtxt1");
 let navbartxt2 = document.querySelector(".navtxt2");
 let navbartxt3 = document.querySelector(".navtxt3");
-let navbartxt4 = document.querySelector(".navtxt4");
 let activetab = document.querySelector(".active-tab");
 
 let shoppingCart = document.querySelector(".shopping-cart");
@@ -201,7 +200,6 @@ function myFunction() {
     navbartxt1.classList.add("color-text");
     navbartxt2.classList.add("color-text");
     navbartxt3.classList.add("color-text");
-    navbartxt4.classList.add("color-text");
     activetab.classList.add("active-color");
   } else {
     header.classList.remove("color-header");
@@ -209,7 +207,6 @@ function myFunction() {
     navbartxt1.classList.remove("color-text");
     navbartxt2.classList.remove("color-text");
     navbartxt3.classList.remove("color-text");
-    navbartxt4.classList.remove("color-text");
     activetab.classList.remove("active-color");
   }
 }
