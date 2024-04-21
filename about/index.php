@@ -41,6 +41,10 @@ if (!isset($_SESSION['cart'])) {
 
 
     <div class="contact-body">
+    <div style="text-align: center;">
+    <h1 style="display: inline; font-size: 40px;">About Us</h1>
+</div>
+
       <div class="contact-info">
         <div>
           <span><i class="fas fa-mobile-alt"></i></span>
@@ -63,6 +67,7 @@ if (!isset($_SESSION['cart'])) {
           <span class="text">Monday - Friday (6:00 AM to 5:00 PM)</span>
         </div>
       </div>
+      
 
       <div class="contact-form">
         <form>
@@ -78,18 +83,15 @@ if (!isset($_SESSION['cart'])) {
           <input type="submit" class="send-btn" value="send message">
         </form>
 
-        <div>
-          <img src="fan.jpg" alt="">
-        </div>
+        <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d61443.73120647719!2d120.935978!3d15.738798!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3390d734edfc1219%3A0x3faa20a6ea786e04!2sCLSU%20New%20Market!5e0!3m2!1sen!2sph!4v1713702057557!5m2!1sen!2sph"
+           width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>  
+       
       </div>
     </div>
 
-    <div class="map">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3840.356797715034!2d120.92298727447609!3d15.732253248372194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3390d734edfc1219%3A0x3faa20a6ea786e04!2sCLSU%20New%20Market!5e0!3m2!1sen!2sph!4v1711202277603!5m2!1sen!2sph"
-        width="1360" height="350" style="border:0;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+   
   </section>
 
 
