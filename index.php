@@ -108,7 +108,6 @@ $bg = rand(1, 4);
           us now to elevate your business presence and seize new opportunities!
         </p>
         <br />
-        <a href="#" class="btn-join-now">Join Now</a>
       </div>
     </div>
   </section>
@@ -124,7 +123,6 @@ $bg = rand(1, 4);
           your order and enjoy delicious treats delivered right to your doorstep on campus!
         </p>
         <br />
-        <a href="#" class="btn-join-now">Browse Shops</a>
       </div>
       <img src="img/fan.jpg" />
     </div>

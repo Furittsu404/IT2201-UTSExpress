@@ -424,12 +424,13 @@ hr {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
     transition: opacity 0.25s ease-in-out;
 }
+
 .modal-postEdit {
     display: block;
     position: fixed;
@@ -458,6 +459,16 @@ hr {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+}
+
+.delete-modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
 }
 
 .modal-top {
@@ -500,23 +511,23 @@ hr {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
-  
-  .form-control:focus {
+}
+
+.form-control:focus {
     color: #495057;
     background-color: #fff;
     border-color: #44ff3d;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
-  
-  .form-label {
+}
+
+.form-label {
     display: inline-block;
     margin-bottom: 0.5rem;
     font-size: 2rem;
-  }
+}
 
-  .form-row {
+.form-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -524,9 +535,9 @@ hr {
     grid-template-columns: 20% 80%;
     width: 100%;
     padding: 1rem;
-  }
+}
 
-  .form-row-btn {
+.form-row-btn {
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -534,9 +545,9 @@ hr {
     width: 100%;
     padding: 1rem;
     gap: 1rem;
-  }
+}
 
-  .product-image {
+.product-image {
     display: none;
     width: 90%;
     justify-content: center;
@@ -544,38 +555,47 @@ hr {
     object-fit: scale-down;
     overflow: hidden;
     align-self: center;
-  }
+}
 
-  .form-btn {
+.form-btn {
     padding: 1rem;
     background: none;
     border-radius: 8px;
     font-size: 1.5rem;
     width: 13rem;
     cursor: pointer;
-  }
+}
 
-  .form-btn .btn-icon {
+.form-btn .btn-icon {
     display: none;
-  }
+}
 
-  .cancel {
+.cancel {
     background-color: #AAA;
-  }
+}
 
-  .create {
+.create {
     background-color: green;
     color: white;
-  }
+}
 
-  .cancel:hover {
+.cancel:hover {
     background-color: #888;
-  }
+}
 
-  .create:hover {
+.create:hover {
     background-color: darkgreen;
-  }
-  
+}
+
+.del {
+    background-color: red ;
+    color: white;
+}
+
+.del:hover {
+    background-color: rgb(160, 0, 0);
+}
+
 /*=================================================================*/
 .sort-container {
     display: flex;
@@ -774,6 +794,7 @@ hr {
     text-align: center;
     box-shadow: var(--box-shadow);
 }
+
 .product:hover {
     transform: scale(1.05);
     transition: 0.3s ease-in-out;
@@ -947,7 +968,7 @@ hr {
     color: var(--black);
     font-size: 1.5rem;
     padding: .5rem 0;
-} 
+}
 
 a.cart-icon {
     font-size: 1.75rem;
@@ -958,6 +979,29 @@ a.cart-icon {
     line-height: 3.2rem;
     background-color: yellowgreen;
     top: 5%;
+}
+
+.delete {
+    border-color: red !important;
+    color: red !important;
+    width: 60%;
+}
+
+.delete:hover {
+    background-color: red !important;
+    color: white !important;
+}
+
+.edit {
+    background-color: darkgreen !important;
+    border-color: darkgreen !important;
+    color: white !important;
+    width: 60%;
+}
+
+.edit:hover {
+    background-color: rgb(0, 80, 0) !important;
+    border-color: rgb(0, 80, 0) !important;
 }
 
 
@@ -981,6 +1025,7 @@ a.cart-icon {
     section {
         padding: 2rem;
     }
+
     .form-row {
         flex-direction: column;
     }

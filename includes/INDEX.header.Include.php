@@ -1,18 +1,23 @@
-<?php $cart->validateCart(); ?> 
+<?php $cart->validateCart(); ?>
 <header class="header" id="header">
   <a href="?"><img src="img/UTS-Express.png" class="logo" /></a>
 
   <nav class="navbar">
     <a href="?" class="<?= ($_SESSION['site'] === 'Home') ? "active-tab navtxt" : "navtxt" ?>" id="navtxt">Home</a>
-    <a href="products" class="<?= ($_SESSION['site'] === 'Products') ? "active-tab navtxt1" : "navtxt1" ?>" id="navtxt">Products</a>
-    <a href="shops" class="<?= ($_SESSION['site'] === 'Shops') ? "active-tab navtxt2" : "navtxt2" ?>" id="navtxt">Shops</a>
-    <a href="about" class="<?= ($_SESSION['site'] === 'About') ? "active-tab navtxt3" : "navtxt3" ?>" id="navtxt">About Us</a>
+    <a href="products" class="<?= ($_SESSION['site'] === 'Products') ? "active-tab navtxt1" : "navtxt1" ?>"
+      id="navtxt">Products</a>
+    <a href="shops" class="<?= ($_SESSION['site'] === 'Shops') ? "active-tab navtxt2" : "navtxt2" ?>"
+      id="navtxt">Shops</a>
+    <a href="about" class="<?= ($_SESSION['site'] === 'About') ? "active-tab navtxt3" : "navtxt3" ?>" id="navtxt">About
+      Us</a>
   </nav>
 
   <div class="icons" id="nav">
     <div class="fas fa-bars" id="menu-btn"></div>
     <div class="fas fa-search" id="search-btn"></div>
-    <div class="fas fa-shopping-cart static" id="cart-btn"><a id="cart-icon" class="cart-icon"><?= isset($_SESSION['cart']) ? sizeof($_SESSION['cart']) : 0 ?></a></div>
+    <div class="fas fa-shopping-cart static" id="cart-btn" <?php if (!isset($_SESSION['user']) && isset($_SESSION['user_ID']))
+      echo 'style="display: none;"'; ?>><a id="cart-icon"
+        class="cart-icon"><?= isset($_SESSION['cart']) ? sizeof($_SESSION['cart']) : 0 ?></a></div>
     <?php
     if (isset($_SESSION['user_ID'])) {
       echo '<div class="fas fa-user" id="user-btn"></div>';
@@ -32,7 +37,7 @@
         <div class="box">
           <i class="fas fa-trash trash-btn" data-id="<?= $id ?>"></i>
           <div class="cart-img-container">
-            <img src="img/<?=$itemData[0][5]?>/products/<?= $id ?>.png" alt="" />
+            <img src="img/<?= $itemData[0][5] ?>/products/<?= $id ?>.png" alt="" />
           </div>
           <div class="content">
             <h3><?= $itemData[0][1] ?></h3>
@@ -63,7 +68,7 @@
     <a href="profile">Profile</a>
   <?php endif; ?>
   <?php if (isset($_SESSION['shop'])): ?>
-    <a href="shop/?shop_ID=<?=$_SESSION['user_ID']?>">Shop Profile</a>
+    <a href="shop/?shop_ID=<?= $_SESSION['user_ID'] ?>">Shop Profile</a>
     <a href="shop/profile.php">Profile</a>
   <?php endif; ?>
   <?php if (isset($_SESSION['driver'])): ?>

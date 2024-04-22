@@ -25,7 +25,7 @@ if (isset($_POST['create'])) {
     $database->addProduct($_POST);
     $name = $database->showRecords('shopproducts', "WHERE shop_ID LIKE '$shop_ID' ORDER BY product_ID DESC LIMIT 0,1");
     $database->moveFile($shop_ID, $name[0][0], $_FILES, '../img', 'products');
-    header("Location: ".$_SERVER['PHP_SELF']);
+    header("Location: " . $_SERVER['PHP_SELF']);
 }
 if (isset($_POST['edit'])) {
     if ($_FILES['product_Image']['name'] != NULL) {
@@ -33,7 +33,14 @@ if (isset($_POST['edit'])) {
         $database->moveFile($shop_ID, $_POST['product_ID'], $_FILES, '../img', 'products');
     }
     $database->editProduct($_POST, 'shopproducts', ['product_ID' => $_POST['product_ID']]);
-    header("Location: ".$_SERVER['PHP_SELF']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+}
+if (isset($_POST['delete'])) {
+    $product_id = $_POST['product_ID'];
+    unlink("../img/$shop_ID/products/$product_id.png");
+    $action = $database->deleteRecord('shopproducts', ['product_ID' => $product_id]);
+    echo "<script>alert('Deleted product successfully.'); window.location.href='../shop/?shop_ID=$shop_ID';</script>";
+    exit();
 }
 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -45,10 +52,10 @@ $new = $database->showRecords('shopproducts', "WHERE shop_ID LIKE '$shop_ID' ORD
 
 if (isset($_GET['search'])) {
     if ($_GET['search'] == NULL)
-        echo "<script>window.location.href='?'</script>";
+        echo "<script>window.location.href='?shop_ID=$shop_ID'</script>";
     $searchq = $_GET['search'];
-    $result = $database->showRecords('shopproducts', "WHERE shop_ID = '$shop_ID' AND product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' LIMIT $offset, 9");
-    $totalPages = $database->pagination('product_ID', 9, 'shopproducts', "WHERE shop_ID = $shop_ID AND product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%'");
+    $result = $database->showRecords('shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' AND shop_ID = $shop_ID LIMIT $offset, 9");
+    $totalPages = $database->pagination('product_ID', 9, 'shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' AND shop_ID = $shop_ID");
 }
 
 if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
@@ -104,7 +111,9 @@ if (!isset($_SESSION['cart'])) {
                                 <img src="../img/<?= $shop_ID ?>/products/<?= $new[$i][4]; ?>" alt="">
                                 <h3><?= $new[$i][1]; ?></h3>
                                 <p>Price: P<?= $new[$i][2]; ?></p>
-                                <a id="cartbtn" class="btn cartbtn" data-id="<?= $new[$i][0]; ?>">Add To Cart</a>
+                                <?php if (isset($_SESSION['user']) || !isset($_SESSION['user_ID'])): ?>
+                                    <a id="cartbtn" class="btn cartbtn" data-id="<?= $new[$i][0]; ?>">Add To Cart</a>
+                                <?php endif; ?>
                             </div>
                         <?php endfor; ?>
                     <?php endif; ?>
@@ -114,7 +123,7 @@ if (!isset($_SESSION['cart'])) {
 
         <section class="products">
             <hr>
-            <h1 class="heading"> our <span>products</span></h1>
+            <h1 class="heading"> Our <span>Products</span></h1>
             <div class="sort-container">
                 <h1>SORT:</h1>
                 <button class="sort-button <?= $database->namesort ? 'active-sort' : '' ?>" type="button"
@@ -134,14 +143,20 @@ if (!isset($_SESSION['cart'])) {
                     <?php for ($i = 0; $i < count($result); $i++): ?>
                         <?php $product_ID[$i] = $result[$i][0]; ?>
                         <div class="product">
-                            <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
-                                    echo "showModal('edit-product$i')"; ?>" alt="">
-                            <h3 onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
-                                echo "showModal('edit-product$i')"; ?>"><?= $result[$i][1]; ?></h3>
+                            <img src="../img/<?= $shop_ID ?>/products/<?= $result[$i][4]; ?>" alt="">
+                            <h3><?= $result[$i][1]; ?></h3>
                             <p>Price: P<?= $result[$i][2]; ?></p>
-                            <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
+                            <?php if (isset($_SESSION['user']) || !isset($_SESSION['user_ID'])): ?>
+                                <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] == $shop_ID || isset($_SESSION['admin'])): ?>
+                                    <a onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'] || isset($_SESSION['admin']))
+                                    echo "showModal('edit-product$i')"; ?>" class="btn edit">Edit</a>
+                                    <a onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'] || isset($_SESSION['admin']))
+                                    echo "showModal('delete-product$i')"; ?>" class="btn delete">Delete</a>
+                            <?php endif; ?>
                         </div>
-                        <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
+                        <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'] || isset($_SESSION['admin'])): ?>
                                 <div id="edit-product<?= $i ?>" class="modal">
                                     <div class="modal-content">
                                         <div class="modal-top">
@@ -152,18 +167,18 @@ if (!isset($_SESSION['cart'])) {
                                         <form method="post" enctype="multipart/form-data">
                                             <div class="form-row">
                                                 <label for="product_Name" class="form-label">Name</label>
-                                                <input type="text" class="form-control" oninput="letterOnly(this.id);" id="product_Name" name="product_Name"
-                                                    value="<?= $result[$i][1] ?>">
+                                                <input type="text" class="form-control" oninput="letterOnly(this.id);" id="product_Name"
+                                                    name="product_Name" value="<?= $result[$i][1] ?>">
                                             </div>
                                             <div class="form-row">
                                                 <label for="product_Price" class="form-label">Price (₱)</label>
-                                                <input type="number" step="0.01" oninput="numberOnly(this.id);" class="form-control" id="product_Price"
-                                                    name="product_Price" value="<?= $result[$i][2] ?>">
+                                                <input type="number" step="0.01" oninput="numberOnly(this.id);" class="form-control"
+                                                    id="product_Price" name="product_Price" value="<?= $result[$i][2] ?>">
                                             </div>
                                             <div class="form-row">
                                                 <label for="product_Description" class="form-label">Description</label>
-                                                <textarea rows="3" class="form-control" oninput="letterOnly(this.id);" id="product_Description"
-                                                    name="product_Description"><?= $result[$i][3] ?></textarea>
+                                                <textarea rows="3" class="form-control" oninput="letterOnly(this.id);"
+                                                    id="product_Description" name="product_Description"><?= $result[$i][3] ?></textarea>
                                             </div>
                                             <div class="form-row">
                                                 <label for="product_Image" class="form-label">Product Image</label>
@@ -189,6 +204,48 @@ if (!isset($_SESSION['cart'])) {
                                                         class="btn-text">Cancel</span><i class="bi bi-x-lg btn-icon"></i></button>
                                                 <button type="submit" name="edit" class="form-btn create"><span class="btn-text">Edit
                                                         Product</span><i class="bi bi-check-lg btn-icon"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="delete-product<?= $i ?>" class="modal">
+                                    <div class="delete-modal-content">
+                                        <div class="modal-top">
+                                            <h1 style="font-size: 2.5rem;">DELETE PRODUCT</h1>
+                                            <div class="close" onclick="closeModal('delete-product<?= $i ?>')">&times;</div>
+                                        </div>
+                                        <hr><br>
+                                        <form method="post">
+                                            <div class="form-row">
+                                                <h1>Are you sure you want to delete this product?</h1>
+                                            </div>
+                                            <div class="form-row hidden">
+                                                <label for="product_ID" class="form-label">PRODUCT ID</label>
+                                                <input type="text" class="form-control" id="product_ID" name="product_ID"
+                                                    value="<?= $result[$i][0] ?>">
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="product_Name" class="form-label">Name</label>
+                                                <input type="text" class="form-control" id="product_Name" name="product_Name"
+                                                    value="<?= $result[$i][1] ?>" disabled>
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="product_Price" class="form-label">Price (₱)</label>
+                                                <input type="number" step="0.01" class="form-control" id="product_Price"
+                                                    name="product_Price" value="<?= $result[$i][2] ?>" disabled>
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="product_Description" class="form-label">Description</label>
+                                                <textarea rows="3" class="form-control" id="product_Description"
+                                                    name="product_Description" disabled><?= $result[$i][3] ?></textarea>
+                                            </div>
+                                            <div class="form-row-btn">
+                                                <button type="button" class="form-btn cancel"
+                                                    onclick="closeModal('delete-product<?= $i ?>');"><span
+                                                        class="btn-text">Cancel</span><i class="bi bi-x-lg btn-icon"></i></button>
+                                                <button type="submit" name="delete" class="form-btn del"><span
+                                                        class="btn-text">Delete Product</span><i
+                                                        class="bi bi-check-lg btn-icon"></i></button>
                                             </div>
                                         </form>
                                     </div>
@@ -311,34 +368,12 @@ if (!isset($_SESSION['cart'])) {
             </div>
         </section>
     </div>
-
-
-    <section class="blogs" id="blogs">
-
-        <h1 class="heading"> Check Us <span>Out!</span></h1>
-
-        <div class="box-container">
-
-            <div class="box">
-                <img src="rawr.png" alt="">
-            </div>
-
-            <div class="box">
-                <img src="rawr.png" alt="">
-            </div>
-
-            <div class="box">
-                <img src="rawr.png" alt="">
-            </div>
-        </div>
-
-    </section>
     <?php include '../includes/footer.Include.php' ?>
     <script src="../js/products.js"></script>
     <script>
         function handleSearchQuery() {
             const searchBoxValue = document.getElementById('search-box').value;
-            const searchQuery = searchBoxValue ? `&search=${searchBoxValue}` : ' ';
+            const searchQuery = searchBoxValue ? searchBoxValue : '';
             const shopID = <?= $shop_ID ?>;
             const sortType = '<?= isset($_GET['sort']) ? $_GET['sort'] : 'reset' ?>';
             const page = <?= $page ? $page : NULL ?>;

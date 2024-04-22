@@ -44,8 +44,10 @@ if (isset($_GET['sort']) && $_GET['sort'] != 'reset') {
                 </a>
                 <div class="end">
                     <br>
-                    <button type="button" class="add-cart cartbtn" id="cartbtn" data-id="<?= $result[$i][0] ?>">Add
-                        to Cart</button>
+                    <?php if (isset($_SESSION['user']) || !isset($_SESSION['user_ID'])): ?>
+                        <button type="button" class="add-cart cartbtn" data-id="<?= $result[$i][0] ?>">Add
+                            to Cart</button>
+                    <?php endif; ?>
                 </div>
             </div>
             <div id="description<?= $i ?>" class="modal">

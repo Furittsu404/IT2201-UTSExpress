@@ -29,7 +29,7 @@ class Authentication extends Database
                 $_SESSION['user_ID'] = $isadmin[0][0];
                 $_SESSION['user_Nickname'] = $isadmin[0][1];
                 $_SESSION['admin'] = true;
-                $_SESSION['cart'] = $cart->getCart() ?? [];
+                $_SESSION['cart'] = [];
                 echo "<script>window.location.href='../admin';</script>";
                 exit();
             }
@@ -42,7 +42,7 @@ class Authentication extends Database
                 $data2 = $this->showRecords('shopdata', "WHERE shop_ID = '$shop_ID'");
                 $_SESSION['user_Nickname'] = $data2[0][1];
                 $_SESSION['shop'] = true;
-                $_SESSION['cart'] = $cart->getCart() ?? [];
+                $_SESSION['cart'] = [];
                 echo "<script>window.location.href='../';</script>";
                 exit();
             }
@@ -54,7 +54,7 @@ class Authentication extends Database
                 $data2 = $this->showRecords('driverdata', "WHERE driver_ID = '$driver_ID'");
                 $_SESSION['user_Nickname'] = $data2[0][1];
                 $_SESSION['driver'] = true;
-                $_SESSION['cart'] = $cart->getCart() ?? [];
+                $_SESSION['cart'] = [];
                 echo "<script>window.location.href='../';</script>";
                 exit();
             }

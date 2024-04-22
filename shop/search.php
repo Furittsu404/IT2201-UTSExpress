@@ -4,7 +4,7 @@ include '../db/actionSort.php';
 include '../db/connection.php';
 $_SESSION['site'] = 'Shops';
 $shopPage = true;
-$shop_ID = $_GET['shop_ID'];
+$shop_ID = $_SESSION['shop_ID'];
 
 $conn = new Connection();
 $database = new Sort($conn->connect());
@@ -19,17 +19,20 @@ if (isset($_POST['create'])) {
 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($page - 1) * 9;
-$result = $database->showRecords('shopproducts', "WHERE shop_ID LIKE $shop_ID LIMIT $offset, 9");
+$result = $database->showRecords('shopproducts', "WHERE shop_ID = '$shop_ID' LIMIT $offset, 9");
 $totalPages = $database->pagination('product_ID', 9, 'shopproducts', "WHERE shop_ID = '$shop_ID'");
-$result2 = $database->showRecords('shopdata', "WHERE shop_ID LIKE '$shop_ID'");
-$new = $database->showRecords('shopproducts', "WHERE shop_ID LIKE '$shop_ID' ORDER BY product_ID DESC LIMIT 0,3");
+$result2 = $database->showRecords('shopdata', "WHERE shop_ID = '$shop_ID'");
+$new = $database->showRecords('shopproducts', "WHERE shop_ID = '$shop_ID' ORDER BY product_ID DESC LIMIT 0,3");
 
 if (isset($_GET['search'])) {
-    if ($_GET['search'] == NULL)
-        echo "<script>window.location.href='?'</script>";
     $searchq = $_GET['search'];
-    $result = $database->showRecords('shopproducts', "WHERE shop_ID = '$shop_ID' AND product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' LIMIT $offset, 9");
-    $totalPages = $database->pagination('product_ID', 9, 'shopproducts', "WHERE shop_ID = $shop_ID AND product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%'");
+    $result = $database->showRecords('shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' AND shop_ID = $shop_ID LIMIT $offset, 9");
+    $totalPages = $database->pagination('product_ID', 9, 'shopproducts', "WHERE product_ID LIKE '%$searchq%' OR product_Name LIKE '%$searchq%' AND shop_ID = $shop_ID");
+    if ($_GET['search'] == NULL) {
+        $result = $database->showRecords('shopproducts', "WHERE shop_ID = '$shop_ID' LIMIT $offset, 9");
+        $totalPages = $database->pagination('product_ID', 9, 'shopproducts', "WHERE shop_ID = '$shop_ID'");
+    }
+    
 }
 
 $database->sort1 = 1;
@@ -55,7 +58,9 @@ if (isset($_GET['sort'])) {
                             <img src="../img/<?= $shop_ID ?>/products/<?= $new[$i][4]; ?>" alt="">
                             <h3><?= $new[$i][1]; ?></h3>
                             <p>Price: P<?= $new[$i][2]; ?></p>
-                            <a id="cartbtn" class="btn cartbtn" data-id="<?= $new[$i][0]; ?>">Add to Cart</a>
+                        <?php if (isset($_SESSION['user']) || !isset($_SESSION['user_ID'])): ?>
+                                <a id="cartbtn" class="btn cartbtn" data-id="<?= $new[$i][0]; ?>">Add To Cart</a>
+                        <?php endif; ?>
                         </div>
                 <?php endfor; ?>
             <?php endif; ?>
@@ -66,7 +71,7 @@ if (isset($_GET['sort'])) {
 
 <section class="products">
     <hr>
-    <h1 class="heading"> our <span>products</span></h1>
+    <h1 class="heading"> Our <span>Products</span></h1>
     <div class="sort-container">
         <h1>SORT:</h1>
         <button class="sort-button <?= $database->namesort ? 'active-sort' : '' ?>" type="button"
@@ -91,7 +96,9 @@ if (isset($_GET['sort'])) {
                     <h3 onclick="<?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID'])
                         echo "showModal('edit-product$i')"; ?>"><?= $result[$i][1]; ?></h3>
                     <p>Price: P<?= $result[$i][2]; ?></p>
-                    <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
+                    <?php if (isset($_SESSION['user']) || !isset($_SESSION['user_ID'])): ?>
+                        <a id="cartbtn" class="btn cartbtn" data-id="<?= $result[$i][0]; ?>">Add to Cart</a>
+                    <?php endif; ?>
                 </div>
                 <?php if (isset($_SESSION['user_ID'])) if ($_SESSION['user_ID'] === $_GET['shop_ID']): ?>
                         <div id="edit-product<?= $i ?>" class="modal">

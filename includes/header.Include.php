@@ -16,7 +16,7 @@
   <div class="icons" id="nav">
     <div class="fas fa-bars" id="menu-btn"></div>
     <div class="fas fa-search" id="search-btn" style="display: none;"></div>
-    <div class="fas fa-shopping-cart static" id="cart-btn"><a id="cart-icon"
+    <div class="fas fa-shopping-cart static" id="cart-btn" <?php if(!isset($_SESSION['user'])&&isset($_SESSION['user_ID'])) echo 'style="display: none;"';?>><a id="cart-icon"
         class="cart-icon"><?= sizeof($_SESSION['cart']); ?></a></div>
     <?php
     if (isset($_SESSION['user_ID'])) {
