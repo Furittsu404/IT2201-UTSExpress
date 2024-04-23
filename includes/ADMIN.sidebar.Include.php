@@ -29,14 +29,6 @@
                     <a href="../shops/products.php"
                         class="sidebar-link <?= ($_SESSION['site'] === 'shopProducts') ? "active-tab" : "" ?>">&nbsp;&nbsp;Products</a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="../shops/reviews.php"
-                        class="sidebar-link <?= ($_SESSION['site'] === 'shopReviews') ? "active-tab" : "" ?>">&nbsp;&nbsp;Reviews</a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="../shops/reports.php"
-                        class="sidebar-link <?= ($_SESSION['site'] === 'shopReports') ? "active-tab" : "" ?>">&nbsp;&nbsp;Reports</a>
-                </li>
             </ul>
         </li>
         <li class="sidebar-item sidebar-after">
@@ -53,14 +45,6 @@
                 <li class="sidebar-item">
                     <a href="../shops/products.php"
                         class="sidebar-link <?= ($_SESSION['site'] === 'shopProducts') ? "active-tab" : "" ?>">&nbsp;&nbsp;Products</a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="../shops/reviews.php"
-                        class="sidebar-link <?= ($_SESSION['site'] === 'shopReviews') ? "active-tab" : "" ?>">&nbsp;&nbsp;Reviews</a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="../shops/reports.php"
-                        class="sidebar-link <?= ($_SESSION['site'] === 'shopReports') ? "active-tab" : "" ?>">&nbsp;&nbsp;Reports</a>
                 </li>
             </ul>
         </li>

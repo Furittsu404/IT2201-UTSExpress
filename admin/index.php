@@ -56,12 +56,6 @@ $database = new Database($connection->connect());
                         <li class="sidebar-item">
                             <a href="shops/products.php" class="sidebar-link">&nbsp;&nbsp;Products</a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="shops/reviews.php" class="sidebar-link">&nbsp;&nbsp;Reviews</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="shops/reports.php" class="sidebar-link">&nbsp;&nbsp;Reports</a>
-                        </li>
                     </ul>
                 </li>
                 <li class="sidebar-item">

@@ -17,6 +17,8 @@ if (sizeof($_SESSION['cart']) == 0) {
 if (isset($_SESSION['user_ID'])) {
     $user_id = $_SESSION['user_ID'];
     $userdata =$database->showRecords('userdata',"WHERE user_ID = $user_id");
+    $userlogin = $database->showRecords('userlogin',"WHERE user_ID = $user_id");
+    $email = $userlogin[0][1];
 }
 
 $total = 0;
@@ -122,6 +124,10 @@ $shopNames = [];
                         <input type="text" class="form-control" oninput="letterOnly(this.id)" id="name" value="<?=isset($userdata) ? $userdata[0][1] : ''?>" placeholder="Enter your Full Name">
                     </div>
                     <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" oninput="validSymbol(this.id)" id="email" value="<?=isset($userdata) ? $email : ''?>" placeholder="Enter your Email">
+                    </div>
+                    <div class="form-group">
                         <label for="address">Location</label>
                         <input type="text" class="form-control" oninput="validSymbol(this.id)" id="address" value="<?=isset($userdata) ? $userdata[0][4] : ''?>" placeholder="Enter your CLSU Location">
                     </div>
@@ -142,8 +148,8 @@ $shopNames = [];
 
                     <label for="payment">Payment Method:</label>
                     <select id="payment" name="payment">
-                        <option value="cod">Cash on Delivery (COD)</option>
-                        <option value="gcash">Gcash</option>
+                        <option value="CoD">Cash on Delivery (COD)</option>
+                        <option value="GCash">Gcash</option>
                     </select><br><br>
                 </div>
                 <div class="checkout-buttons">
@@ -173,6 +179,8 @@ $shopNames = [];
         }
 
         function checkout() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
             var address = document.getElementById('address').value;
             var cp = document.getElementById('cp').value;
             var payment = document.getElementById('payment').value;
@@ -180,6 +188,8 @@ $shopNames = [];
             var products = <?php echo json_encode($product); ?>;
             var shopname = <?php echo json_encode($shopNames); ?>;
             var data = {
+                name: name,
+                email: email,
                 address: address,
                 cp: cp,
                 payment: payment,

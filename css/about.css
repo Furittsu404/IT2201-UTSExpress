@@ -477,11 +477,11 @@ a.cart-icon {
     align-items: center;
 }
 .contact-bg h3{
-    font-size: 1.3rem;
+    font-size: 2rem;
     font-weight: 400;
 }
 .contact-bg h2{
-    font-size: 3rem;
+    font-size: 4rem;
     text-transform: uppercase;
     padding: 0.4rem 0;
     letter-spacing: 4px;
@@ -493,7 +493,7 @@ a.cart-icon {
 .line div:nth-child(3){
     height: 3px;
     width: 70px;
-    background: #f7327a;
+    background: green;
     border-radius: 5px;
 }
 .line{
@@ -503,18 +503,19 @@ a.cart-icon {
 .line div:nth-child(2){
     width: 10px;
     height: 10px;
-    background: #f7327a;
+    background: green;
     border-radius: 50%;
 }
 .text{
     font-weight: 300;
+    font-size: 1.5rem;
     opacity: 0.9;
 }
 .contact-bg .text{
     margin: 1.6rem 0;
 }
 .contact-body{
-    padding: 0 1rem;
+    padding: 3rem;
     background-color: #FFF;
 }
 .contact-info{
@@ -529,19 +530,19 @@ a.cart-icon {
     padding: 1rem;
 }
 .contact-info span .fas{
-    font-size: 2rem;
+    font-size: 3rem;
     padding-bottom: 0.9rem;
-    color: #f7327a;
+    color: green;
 }
 .contact-info div span:nth-child(2){
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 2rem;
 }
 .contact-info .text{
     padding-top: 0.4rem;
 }
 .contact-form{
-    padding: 3rem 0;
+    padding: 3rem;
     border-top: 1px solid #c7c7c7;
 }
 .contact-form form{
@@ -553,8 +554,7 @@ a.cart-icon {
     border-radius: 5px;
     padding: 0.7rem;
     margin: 0.6rem 0;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
     outline: 0;
 }
 .form-control:focus{
@@ -566,11 +566,10 @@ a.cart-icon {
     column-gap: 0.6rem;
 }
 .send-btn{
-    font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     text-transform: uppercase;
     color: #fff;
-    background: #f7327a;
+    background: green;
     border: none;
     border-radius: 5px;
     padding: 0.7rem 1.5rem;
@@ -615,9 +614,16 @@ a.cart-icon {
     transition: all 0.4s ease;
 }
 .social-links a:hover{
-    color: #f7327a;
-    border-color: #f7327a;
+    color: darkgreen;
+    border-color: darkgreen;
 }
+.map {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 3rem;
+}
+
 
 @media screen and (min-width: 768px){
     .contact-bg .text{
@@ -656,10 +662,6 @@ a.cart-icon {
     }
 
     .header {
-        padding: 2rem;
-    }
-
-    section {
         padding: 2rem;
     }
 
