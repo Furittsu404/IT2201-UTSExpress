@@ -19,7 +19,7 @@ try {
     $mail->Port = 465;
 
     $mail->setFrom($_POST['email'], $_POST['name']);
-    $mail->addAddress('furittsuf@gmail.com');
+    $mail->addAddress('utsexp2024@gmail.com');
 
     $mail->isHTML(true);
     $mail->Subject = 'Customer Contact';

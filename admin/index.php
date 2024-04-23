@@ -58,12 +58,6 @@ $database = new Database($connection->connect());
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link">
-                        <i class="lni lni-envelope"></i>
-                        <span>Notifications</span>
-                    </a>
-                </li>
             </ul>
             <a href="profile" class="sidebar-link <?= ($_SESSION['site'] === 'adminAccount') ? "active-tab" : "" ?>">
                 <i class="lni lni-cogs"></i>

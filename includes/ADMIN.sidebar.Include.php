@@ -48,12 +48,6 @@
                 </li>
             </ul>
         </li>
-        <li class="sidebar-item">
-            <a href="users" class="sidebar-link <?= ($_SESSION['site'] === 'notifications') ? "active-tab" : "" ?>">
-                <i class="lni lni-envelope"></i>
-                <span>Notifications</span>
-            </a>
-        </li>
     </ul>
     <div class="sidebar-footer">
         <a href="../profile" class="sidebar-link <?= ($_SESSION['site'] === 'adminAccount') ? "active-tab" : "" ?>">

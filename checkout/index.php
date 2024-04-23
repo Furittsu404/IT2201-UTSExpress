@@ -39,11 +39,10 @@ $shopNames = [];
 <body>
     <div class="container">
         <div class="header">
-            <h1>Shopping Cart</h1>
+            <h1>UTS Express</h1>
         </div>
         <div class="shop-info">
-            <img src="rea.png" alt="Shop Logo" class="shop-logo">
-            <h3 class="shop-name">Charkings</h3>
+            <h3 class="shop-name">Checkout</h3>
         </div>
         <div class="cart">
             <table class="cart-table">
@@ -204,6 +203,13 @@ $shopNames = [];
                 success: function(response) {
                     alert(response);
                     window.location.href = '../';
+                }
+            });
+            $.ajax({
+                url: '../db/checkoutAdmin.php',
+                type: 'POST',
+                data: data,
+                success: function(response) {
                 }
             });
         }
