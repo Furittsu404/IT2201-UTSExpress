@@ -47,18 +47,6 @@ class Authentication extends Database
                 exit();
             }
         }
-        if (count($isdriver) > 0) {
-            if (password_verify($password, $isdriver[0][2])) {
-                $driver_ID = $isdriver[0][0];
-                $_SESSION['user_ID'] = $driver_ID;
-                $data2 = $this->showRecords('driverdata', "WHERE driver_ID = '$driver_ID'");
-                $_SESSION['user_Nickname'] = $data2[0][1];
-                $_SESSION['driver'] = true;
-                $_SESSION['cart'] = [];
-                echo "<script>window.location.href='../';</script>";
-                exit();
-            }
-        }
         echo "<script>alert('Wrong Password!');</script>";
 
 
