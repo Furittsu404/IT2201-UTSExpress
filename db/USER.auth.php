@@ -11,7 +11,6 @@ class Authentication extends Database
         $data = $this->showRecords('userlogin', "WHERE user_Email = '$email'");
         $isadmin = $this->showRecords('adminlogin', "WHERE admin_Email = '$email'");
         $isshop = $this->showRecords('shoplogin', "WHERE shop_Email = '$email'");
-        $isdriver = $this->showRecords('driverlogin', "WHERE driver_Email = '$email'");
         if (count($data) > 0) {
             if (password_verify($password, $data[0][2])) {
                 $user_ID = $data[0][0];
